@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private TriggerActor groundTrigger;
     [SerializeField] private CharacterController controller;
+    [SerializeField] private Transform camera;
 
-    Vector3 velocity;
+    private Vector3 velocity;
+    private float xRotation = 0f;
 
     void Awake()
     {
@@ -53,6 +55,11 @@ public class PlayerController : MonoBehaviour
     private void Turn(float mouseX, float mouseY)
     {
         transform.Rotate(Vector3.up * mouseX);
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        
+        camera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 
     private void Move(float x, float z)
