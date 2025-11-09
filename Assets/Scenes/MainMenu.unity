@@ -622,7 +622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc0e9f6fe6d9c342a385e14d341d5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: {fileID: 11400000, guid: fab4d42a41bc5534882053e19c27e1cb, type: 2}
   loadingScreen: {fileID: 873234266}
 --- !u!1 &557870858
 GameObject:
@@ -1040,8 +1039,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1252,6 +1251,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightSceneButton: {fileID: 2005207466}
   heavySceneButton: {fileID: 557870863}
+  lightSceneData: {fileID: 11400000, guid: fab4d42a41bc5534882053e19c27e1cb, type: 2}
+  heavySceneData: {fileID: 11400000, guid: 67e8f4fec43262b44a41337a3dbcfd60, type: 2}
   sceneLoader: {fileID: 446777378}
 --- !u!1 &2005207464
 GameObject:

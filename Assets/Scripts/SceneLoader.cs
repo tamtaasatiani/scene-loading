@@ -5,16 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private SceneData scene;
     [SerializeField] private LoadingScreen loadingScreen;
 
-    private void Awake()
+    public async UniTask LoadScene(SceneData scene)
     {
-        scene.Initialize();
-    }
-
-    public UniTask LoadScene()
-    {
+        if (scene == null)
+        {
+            Debug.LogError($"Scene is empty or unavailable");
+        }
+        
         loadingScreen.Initialize();
         
         if (scene.ScenePreview != null)
@@ -27,14 +26,13 @@ public class SceneLoader : MonoBehaviour
         if (operation == null)
         {
             Debug.LogError($"Unable to load scene {scene.name}");
-            return UniTask.CompletedTask;
+            return;
         }
         
         while (!operation.isDone)
         {
             loadingScreen.SetSliderValue(operation.progress);
+            await UniTask.DelayFrame(1);
         }
-        
-        return UniTask.CompletedTask;
     }
 }

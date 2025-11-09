@@ -5985,6 +5985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Screenshot Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 3679830934806668358, guid: 6c179822b6bc4774bbd8fa60c3d66ddb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4174194561135240273, guid: 6c179822b6bc4774bbd8fa60c3d66ddb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.6
