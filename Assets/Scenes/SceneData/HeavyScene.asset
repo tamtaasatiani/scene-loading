@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c4939684e3c2654c9920107a3c95feb, type: 3}
-  m_Name: LightScene
+  m_Name: HeavyScene
   m_EditorClassIdentifier: 
-  name: LightScene
-  scenePreview: {fileID: 21300000, guid: ac6c3816d54e25b4e88bd06e18ee06bf, type: 3}
+  name: HeavyScene
+  scenePreview: {fileID: 21300000, guid: 00a1bedadc744c24497a73aa8cca713a, type: 3}

@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +7,8 @@ public class SceneData : ScriptableObject
     [SerializeField] private string name;
     [SerializeField] private Sprite scenePreview;
     
+    public Sprite ScenePreview => scenePreview;
+    
     private Scene scene;
 
     public void Initialize()
@@ -16,12 +17,8 @@ public class SceneData : ScriptableObject
 
         if (scene == null)
         {
-            throw new System.Exception("Scene not found: " + name);
+            Debug.LogError($"Scene {name} not found!");
+            return;
         }
-    }
-
-    public async UniTask LoadScene()
-    {
-        await SceneManager.LoadSceneAsync(name);
     }
 }

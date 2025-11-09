@@ -7,18 +7,26 @@ public class LoadingScreen : MonoBehaviour
     
     [SerializeField] private Slider slider;
 
-    void Awake()
+    public void Initialize()
     {
-        image = GetComponent<Image>();
+        image = GetComponentInChildren<Image>();
+        slider = GetComponentInChildren<Slider>();
     }
 
     public void SetImage(Sprite sprite)
     {
+        if (image == null || image.sprite == null) return;
         image.sprite = sprite;
+    }
+
+    public void ShowLoadingScreen()
+    {
+        this.gameObject.SetActive(true);
     }
 
     public void SetSliderValue(float value)
     {
+        if (slider == null) return;
         slider.value = value;
     }
 
