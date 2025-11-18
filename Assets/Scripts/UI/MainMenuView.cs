@@ -13,24 +13,24 @@ public class MainMenuView : MonoBehaviour
     [SerializeField] private SceneLoader sceneLoader;
     
     
-    public event UnityAction loadLightScene;
-    public event UnityAction loadHeavyScene;
+    public event UnityAction LoadLightScene;
+    public event UnityAction LoadHeavyScene;
 
     private void Awake()
     {
-        loadLightScene = LoadLightScene;
-        loadHeavyScene = LoadHeavyScene;
+        LoadLightScene = HandleLoadLightScene;
+        LoadHeavyScene = HandleLoadHeavyScene;
         
-        lightSceneButton.onClick.AddListener(loadLightScene);
-        heavySceneButton.onClick.AddListener(loadHeavyScene);
+        lightSceneButton.onClick.AddListener(LoadLightScene);
+        heavySceneButton.onClick.AddListener(LoadHeavyScene);
     }
 
-    private void LoadLightScene()
+    private void HandleLoadLightScene()
     {
         sceneLoader.LoadScene(lightSceneData);
     }
 
-    private void LoadHeavyScene()
+    private void HandleLoadHeavyScene()
     {
         sceneLoader.LoadScene(heavySceneData);
     }
