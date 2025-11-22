@@ -24,6 +24,7 @@ public class SceneLoader : MonoBehaviour
                 loadingScreen.SetImage(scene.ScenePreview);
 
             loadingScreen.ShowLoadingScreen();
+            await UniTask.DelayFrame(1);
 
             var operation = SceneManager.LoadSceneAsync(scene.name);
 
