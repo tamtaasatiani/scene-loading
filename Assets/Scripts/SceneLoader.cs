@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
@@ -26,17 +27,17 @@ public class SceneLoader : MonoBehaviour
             loadingScreen.ShowLoadingScreen();
             await UniTask.DelayFrame(1);
 
-            var operation = SceneManager.LoadSceneAsync(scene.name);
+            var operation = Addressables.LoadSceneAsync(scene.name);
 
-            if (operation == null)
+            if (operation.Equals(null))
             {
                 Debug.LogError($"Unable to load scene {scene.name}");
                 return;
             }
 
-            while (!operation.isDone)
+            while (!operation.GetDownloadStatus().IsDone)
             {
-                loadingScreen.SetSliderValue(operation.progress);
+                loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
                 await UniTask.DelayFrame(1);
             }
         }
