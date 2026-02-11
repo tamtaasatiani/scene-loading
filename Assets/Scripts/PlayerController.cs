@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         controller = GetComponent<CharacterController>();
-        groundTrigger.Triggered += GroundedToggle;
+        groundTrigger.OnTriggered += GroundedToggle;
     }
 
     void Update()
@@ -39,10 +39,7 @@ public class PlayerController : MonoBehaviour
         if (!isGrounded)
             Fall();
 
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
+        
     }
 
     private void GroundedToggle(bool grounded)

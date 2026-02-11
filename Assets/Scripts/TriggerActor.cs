@@ -5,13 +5,13 @@ public class TriggerActor : MonoBehaviour
 {
     [SerializeField] private LayerMask mask;
 
-    public Action<bool> Triggered;
+    public Action<bool> OnTriggered;
 
     private void OnTriggerEnter(Collider collider)
     {
         if (( mask & (1 << collider.gameObject.layer)) != 0)
         {
-            Triggered?.Invoke(true);
+            OnTriggered?.Invoke(true);
         }
     }
 
@@ -19,7 +19,7 @@ public class TriggerActor : MonoBehaviour
     {
         if (( mask & (1 << collider.gameObject.layer)) != 0)
         {
-            Triggered?.Invoke(false);
+            OnTriggered?.Invoke(false);
         }
     }
 }

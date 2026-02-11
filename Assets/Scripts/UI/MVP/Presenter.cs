@@ -7,7 +7,7 @@ namespace UI.MVP
     {
         private TView _view;
         
-        public Presenter(TView view, IModel model)
+        public Presenter(IModel model)
         {
             _view = Addressables.LoadAssetAsync<TView>(typeof(TView).Name).Result;
             var presenter = this as IPresenter<IView>;
