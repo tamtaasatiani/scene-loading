@@ -8,17 +8,20 @@ namespace UI.MVP
     {
         private TView _view;
         
-        public Presenter(IModel model)
+        public Presenter(IModel model, Canvas canvas)
         {
-            CreateViewAsync(model).Forget();
+            CreateViewAsync(model, canvas).Forget();
         }
 
-        private async UniTask CreateViewAsync(IModel model)
+        private async UniTask CreateViewAsync(IModel model, Canvas canvas)
         {
             //location: 
             var obj = await Addressables.InstantiateAsync(typeof(TView).Name);
             _view = obj.GetComponent<TView>();
             var presenter = this as IPresenter<IView>;
+            obj.transform.parent = canvas.transform;
+            obj.transform.localPosition = new Vector3(0, 0, 0);
+            obj.transform.localRotation = Quaternion.identity;
             _view.Initialize(model);
         }
     }

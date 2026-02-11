@@ -2,7 +2,7 @@ using UI.MVP.Pause;
 using UI.MVP.PauseView;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonobehaviour<GameManager>
 {
     private bool _paused;
     
@@ -29,10 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdatePauseState()
     {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            TransitionToPlayState();
-        }
+        
     }
 
     private void TransitionToPauseState()
@@ -41,7 +38,7 @@ public class GameManager : MonoBehaviour
         _paused = true;
 
         var pauseModel = new PauseModel();
-        var presenter = new PausePresenter(pauseModel);
+        var presenter = new PausePresenter(pauseModel, canvas);
     }
     
     private void TransitionToPlayState()
