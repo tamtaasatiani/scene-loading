@@ -1,6 +1,6 @@
 namespace UI.MVP
 {
-    public class Model
+    public class Model : IModel
     {
         
     }

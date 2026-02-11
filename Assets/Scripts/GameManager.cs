@@ -1,4 +1,5 @@
 using UI.MVP.Pause;
+using UI.MVP.PauseView;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -38,8 +39,9 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         _paused = true;
-        var presenter = new PausePresenter();
-        
+
+        var pauseModel = new PauseModel();
+        var presenter = new PausePresenter(pauseModel);
     }
     
     private void TransitionToPlayState()
