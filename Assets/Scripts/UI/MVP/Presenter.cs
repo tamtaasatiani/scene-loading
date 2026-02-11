@@ -11,7 +11,7 @@ namespace UI.MVP
         {
             _view = Addressables.LoadAssetAsync<TView>(typeof(TView).Name).Result;
             var presenter = this as IPresenter<IView>;
-            _view.Initialize(presenter, model);
+            _view.Initialize(model);
         }
     }
 }

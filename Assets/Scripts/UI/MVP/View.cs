@@ -7,9 +7,8 @@ namespace UI.MVP
         private IPresenter<IView> _presenter;
         private IModel _model;
 
-        public void Initialize(IPresenter<IView> presenter, IModel model)
+        public virtual void Initialize(IModel model)
         {
-            _presenter = presenter;
             _model = model;
         }
         
