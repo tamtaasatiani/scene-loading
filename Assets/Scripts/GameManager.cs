@@ -1,5 +1,4 @@
 using UI.MVP.Pause;
-using UI.MVP.PauseView;
 using UnityEngine;
 
 public class GameManager : SingletonMonobehaviour<GameManager>

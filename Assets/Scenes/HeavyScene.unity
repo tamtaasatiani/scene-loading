@@ -6577,8 +6577,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1666785591
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1790893424
 RectTransform:
@@ -6985,6 +6985,10 @@ PrefabInstance:
     - target: {fileID: 4362414364677993265, guid: b79d880fa9d28fc43b020d92bfcfd0b7, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303477293853739060, guid: b79d880fa9d28fc43b020d92bfcfd0b7, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1666785591
       objectReference: {fileID: 0}
     - target: {fileID: 7735820521749081909, guid: b79d880fa9d28fc43b020d92bfcfd0b7, type: 3}
       propertyPath: PLAYER_SPEED

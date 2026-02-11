@@ -6,7 +6,7 @@ namespace UI.MVP
 {
     public class Presenter<TView> : IPresenter<TView> where TView : IView
     {
-        private TView _view;
+        protected TView _view;
         
         public Presenter(IModel model, Canvas canvas)
         {
@@ -22,6 +22,7 @@ namespace UI.MVP
             obj.transform.parent = canvas.transform;
             obj.transform.localPosition = new Vector3(0, 0, 0);
             obj.transform.localRotation = Quaternion.identity;
+            obj.transform.localScale = Vector3.one;
             _view.Initialize(model);
         }
     }
