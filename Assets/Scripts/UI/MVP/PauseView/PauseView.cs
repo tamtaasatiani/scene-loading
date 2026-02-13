@@ -10,12 +10,7 @@ namespace UI.MVP.Pause
 
         public override void Initialize(IModel model)
         {
-            close.onClick.AddListener(Close);
-        }
-
-        private void Close()
-        {
-            Destroy(gameObject);
+            close.onClick.AddListener(Dispose);
         }
 
         public void OnDestroy()

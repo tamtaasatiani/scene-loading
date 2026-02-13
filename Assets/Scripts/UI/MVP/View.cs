@@ -14,7 +14,9 @@ namespace UI.MVP
         
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            _model = null;
+            _presenter.DestroyView(this);
+            Destroy(gameObject);
         }
     }
 }
