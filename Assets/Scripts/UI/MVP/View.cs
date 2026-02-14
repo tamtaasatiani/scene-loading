@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace UI.MVP
@@ -7,15 +8,19 @@ namespace UI.MVP
         private IPresenter<IView> _presenter;
         private IModel _model;
 
-        public virtual void Initialize(IModel model)
+        private Action OnDispose;
+
+        public virtual void Initialize(IModel model, Action disposeAction)
         {
             _model = model;
+            OnDispose += disposeAction;
         }
         
         public void Dispose()
         {
             _model = null;
-            _presenter.DestroyView(this);
+            OnDispose?.Invoke();
+            OnDispose = null;
             Destroy(gameObject);
         }
     }

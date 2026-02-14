@@ -6,6 +6,6 @@ namespace UI.MVP
 {
     public interface IView : IDisposable
     {
-        void Initialize(IModel model);
+        void Initialize(IModel model, Action DisposeAction);
     }
 }
