@@ -37,6 +37,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         _paused = true;
 
         var pauseModel = new PauseModel();
+        pauseModel.OnClose += TransitionToPlayState;
         var presenter = new PausePresenter(pauseModel, canvas);
     }
     

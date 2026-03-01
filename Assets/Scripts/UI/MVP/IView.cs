@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace UI.MVP
 {
-    public interface IView : IDisposable
+    public interface IView
     {
-        void Initialize(IModel model, Action DisposeAction);
+        void Initialize(IModel model, Action disposeAction);
     }
 }

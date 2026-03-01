@@ -6,17 +6,20 @@ namespace UI.MVP.Pause
 {
     public class PauseView : View
     {
-        [SerializeField] private Button close;
+        private PauseModel _model;
         
+        [SerializeField] private Button close;
 
         public override void Initialize(IModel model, Action disposeAction)
         {
-            close.onClick.AddListener(Dispose);
+            _model = model as PauseModel;
+            close.onClick.AddListener(() => disposeAction());
             base.Initialize(model, disposeAction);
         }
 
         public void OnDestroy()
         {
+            _model.OnClose?.Invoke();
             close.onClick.RemoveAllListeners();
         }
     }

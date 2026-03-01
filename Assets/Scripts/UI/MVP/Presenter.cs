@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 namespace UI.MVP
 {
-    public class Presenter<TView> : IPresenter<TView> where TView : IView
+    public class Presenter<TView> : IPresenter<TView> where TView : View
     {
         protected TView _view;
         private GameObject _obj;
@@ -36,6 +36,11 @@ namespace UI.MVP
         {
             Addressables.Release(_obj);
             return UniTask.CompletedTask;
+        }
+
+        public virtual void Dispose()
+        {
+            GameObject.Destroy(_view.gameObject);
         }
     }
 }
