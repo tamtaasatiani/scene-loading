@@ -21,6 +21,8 @@ namespace QuestSystem
             {
                 Complete();
             }
+
+            base.UpdateObjective();
         }
     }
 }

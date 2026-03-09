@@ -32,9 +32,7 @@ namespace QuestSystem
         private void OnDisable()
         {
             foreach (var objective in objectives)
-            {
                 objective.OnObjectiveStarted -= AddToActiveObjectives;
-            }
         }
     }
 }

@@ -10,21 +10,25 @@ namespace QuestSystem
         
         public string Name => _name;
         
+        public bool IsCompleted { get; private set; }
+        
         public event Action<Objective> OnObjectiveStarted;
         public event Action<Objective> OnObjectiveCompleted;
+        public event Action<Objective> OnObjectiveUpdated;
 
-        protected virtual void Start()
+        public virtual void Start()
         {
             OnObjectiveStarted?.Invoke(this);
         }
 
         protected virtual void UpdateObjective()
         {
-            throw new NotImplementedException();
+            OnObjectiveUpdated?.Invoke(this);
         }
 
         protected virtual void Complete()
         {
+            IsCompleted = true;
             OnObjectiveCompleted?.Invoke(this);
         }
     }

@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace QuestSystem
 {
+    [CreateAssetMenu(menuName = "Quest System/Quest")]
     public class Quest : ScriptableObject
     {
         [SerializeField] private Objective[] objectives;
@@ -16,19 +18,42 @@ namespace QuestSystem
             private set { _questState = value; }
         }
         
-        public static event Action<Quest> OnQuestStarted;
-        public static event Action<Quest> OnQuestCompleted;
+        public event Action<Quest> OnQuestStarted;
+        public event Action<Quest> OnQuestCompleted;
 
         public void Start()
         {
             _questState = QuestState.Started;
             OnQuestStarted?.Invoke(this);
+
+            foreach (var objective in objectives)
+                objective.Start();
         }
 
-        public void Complete()
+        private void OnEnable()
+        {
+            foreach (var objective in objectives) 
+                objective.OnObjectiveCompleted += TryCompleteQuest;
+        }
+
+        private void TryCompleteQuest(Objective objective)
+        {
+            bool completed = objectives.Where(obj => obj.IsCompleted == false).ToList().Count <= 0;
+            if (!completed) return;
+            
+            Complete();
+        }
+
+        private void Complete()
         {
             _questState = QuestState.Completed;
             OnQuestCompleted?.Invoke(this);
+        }
+
+        private void OnDisable()
+        {
+            foreach (var objective in objectives)
+                objective.OnObjectiveCompleted -= TryCompleteQuest;
         }
     }
 

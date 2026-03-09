@@ -1,7 +1,7 @@
 using UI.MVP.Pause;
 using UnityEngine;
 
-public class GameManager : SingletonMonobehaviour<GameManager>
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     private bool _paused;
     

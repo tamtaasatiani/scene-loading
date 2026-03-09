@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace QuestSystem
 {
-    public class QuestManager : SingletonMonobehaviour<QuestManager>
+    public class QuestManager : SingletonMonoBehaviour<QuestManager>
     {
         private List<Quest> _activeQuests;
         
