@@ -9,16 +9,12 @@ public class SingletonMonobehaviour<T> : MonoBehaviour where T : MonoBehaviour
         get
         {
             if (_instance != null)
-            {
                 return _instance;
-            }
             
             _instance = FindFirstObjectByType<T>();
             
             if (_instance != null)
-            {
                 return _instance;
-            }
 
             SetupInstance();
             return _instance;
