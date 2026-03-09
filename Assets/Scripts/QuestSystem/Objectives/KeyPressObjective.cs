@@ -13,8 +13,10 @@ namespace QuestSystem
         
         public KeyCode Key { get => key; private set => key = value; }
 
-        protected override void UpdateObjective()
+        public override void UpdateObjective()
         {
+            if (IsCompleted) return;
+            
             _completedAmount++;
 
             if (_completedAmount >= amount)

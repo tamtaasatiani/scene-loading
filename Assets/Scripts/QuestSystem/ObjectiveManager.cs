@@ -18,5 +18,17 @@ namespace QuestSystem
             var objective = objectives.FindByName(objName);
             objective.OnObjectiveUpdated -= @event;
         }
+
+        public void Broadcast(string objName)
+        {
+            var objective = objectives.FindByName(objName);
+            if (objective == null)
+            {
+                Debug.LogWarning($"Objective not found: {objName}");
+                return;
+            }
+            
+            objective.UpdateObjective();
+        }
     }
 }

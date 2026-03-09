@@ -6,9 +6,9 @@ namespace QuestSystem
     //[CreateAssetMenu(menuName = "Quest System/Objective")]
     public class Objective : ScriptableObject
     {
-        private string _name;
+        [SerializeField] private string objectiveName;
         
-        public string Name => _name;
+        public string Name => objectiveName;
         
         public bool IsCompleted { get; private set; }
         
@@ -21,7 +21,7 @@ namespace QuestSystem
             OnObjectiveStarted?.Invoke(this);
         }
 
-        protected virtual void UpdateObjective()
+        public virtual void UpdateObjective()
         {
             OnObjectiveUpdated?.Invoke(this);
         }
