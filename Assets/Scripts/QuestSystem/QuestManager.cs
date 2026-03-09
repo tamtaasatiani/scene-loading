@@ -1,20 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace QuestSystem
 {
     public class QuestManager : SingletonMonobehaviour<QuestManager>
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        private List<Quest> _quests;
+        private List<Quest> _activeQuests;
         
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
         
-        }
     }
-
 }

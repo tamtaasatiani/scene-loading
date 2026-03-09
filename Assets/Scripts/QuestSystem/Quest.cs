@@ -6,6 +6,7 @@ namespace QuestSystem
     public class Quest : ScriptableObject
     {
         [SerializeField] private Objective[] objectives;
+        [SerializeField] private Reward[] rewards;
         
         private QuestState _questState = default(QuestState);
 
@@ -18,13 +19,15 @@ namespace QuestSystem
         public static event Action<Quest> OnQuestStarted;
         public static event Action<Quest> OnQuestCompleted;
 
-        private void Start()
+        public void Start()
         {
+            _questState = QuestState.Started;
             OnQuestStarted?.Invoke(this);
         }
 
-        private void Complete()
+        public void Complete()
         {
+            _questState = QuestState.Completed;
             OnQuestCompleted?.Invoke(this);
         }
     }
