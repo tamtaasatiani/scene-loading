@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038bce1bf5688da41aab1aecbed55245, type: 3}
   m_Name: PressBackspace5TimesObjective
   m_EditorClassIdentifier: 
+  objectiveName: PressBackspace
   key: 8
   amount: 10
