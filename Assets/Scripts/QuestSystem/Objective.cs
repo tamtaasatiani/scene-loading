@@ -3,19 +3,24 @@ using UnityEngine;
 
 namespace QuestSystem
 {
+    //[CreateAssetMenu(menuName = "Quest System/Objective")]
     public class Objective : ScriptableObject
     {
-        public static event Action<Objective> OnObjectiveStarted;
-        public static event Action<Objective> OnObjectiveCompleted;
+        private string _name;
+        
+        public string Name => _name;
+        
+        public event Action OnObjectiveStarted;
+        public event Action OnObjectiveCompleted;
 
         protected virtual void Start()
         {
-            OnObjectiveStarted?.Invoke(this);
+            OnObjectiveStarted?.Invoke();
         }
 
         protected virtual void Complete()
         {
-            OnObjectiveCompleted?.Invoke(this);
+            OnObjectiveCompleted?.Invoke();
         }
     }
 }
