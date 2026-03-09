@@ -10,17 +10,22 @@ namespace QuestSystem
         
         public string Name => _name;
         
-        public event Action OnObjectiveStarted;
-        public event Action OnObjectiveCompleted;
+        public event Action<Objective> OnObjectiveStarted;
+        public event Action<Objective> OnObjectiveCompleted;
 
         protected virtual void Start()
         {
-            OnObjectiveStarted?.Invoke();
+            OnObjectiveStarted?.Invoke(this);
+        }
+
+        protected virtual void UpdateObjective()
+        {
+            throw new NotImplementedException();
         }
 
         protected virtual void Complete()
         {
-            OnObjectiveCompleted?.Invoke();
+            OnObjectiveCompleted?.Invoke(this);
         }
     }
 }
