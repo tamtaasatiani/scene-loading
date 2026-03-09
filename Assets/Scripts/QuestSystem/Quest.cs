@@ -21,7 +21,7 @@ namespace QuestSystem
         public event Action<Quest> OnQuestStarted;
         public event Action<Quest> OnQuestCompleted;
 
-        public void Start()
+        public void StartQuest()
         {
             _questState = QuestState.Started;
             OnQuestStarted?.Invoke(this);

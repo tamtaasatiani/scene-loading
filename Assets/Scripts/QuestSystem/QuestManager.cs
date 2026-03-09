@@ -5,7 +5,7 @@ namespace QuestSystem
 {
     public class QuestManager : SingletonMonoBehaviour<QuestManager>
     {
-        private List<Quest> _activeQuests;
+        private List<Quest> _activeQuests = new List<Quest>();
         
         //[SerializeField] private List<Quest> quests;
         [SerializeField] private Quest testQuest;
@@ -13,7 +13,7 @@ namespace QuestSystem
         private void OnEnable()
         {
             testQuest.OnQuestStarted += AddQuest;
-            testQuest.Start();
+            testQuest.StartQuest();
         }
         
         private void OnDisable()
