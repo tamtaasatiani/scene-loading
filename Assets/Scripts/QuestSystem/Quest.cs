@@ -46,6 +46,7 @@ namespace QuestSystem
 
         private void Complete()
         {
+            Debug.Log("Quest completed");
             _questState = QuestState.Completed;
             OnQuestCompleted?.Invoke(this);
         }

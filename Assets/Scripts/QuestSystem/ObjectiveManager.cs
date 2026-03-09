@@ -1,11 +1,36 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace QuestSystem
 {
     public class ObjectiveManager : SingletonMonoBehaviour<ObjectiveManager>
     {
+        private List<Objective> _activeObjectives = new List<Objective>();
+        
         [SerializeField] private ObjectiveLibrary objectives;
+
+        private void OnEnable()
+        {
+            objectives.SubscribeToObjectiveStarted(AddToActiveObjectives);
+        }
+
+        private void OnDisable()
+        {
+            objectives.UnsubscribeToObjectiveStarted(AddToActiveObjectives);
+        }
+
+        private void AddToActiveObjectives(Objective objective)
+        {
+            _activeObjectives.Add(objective);
+        }
+        
+        public Objective FindByName(string objName)
+        {
+            var result = _activeObjectives.FirstOrDefault(objective => objective.Name == objName);
+            return result;
+        }
 
         public void AddListener(string objName, Action<Objective> @event)
         {
@@ -15,7 +40,7 @@ namespace QuestSystem
                 return;
             }
             
-            var objective = objectives.FindByName(objName);
+            var objective = FindByName(objName);
             if (objective == null)
             {
                 Debug.Log($"No active objective with name: {objName}");
@@ -33,7 +58,7 @@ namespace QuestSystem
                 return;
             }
 
-            var objective = objectives.FindByName(objName);
+            var objective = FindByName(objName);
             if (objective == null)
             {
                 Debug.Log($"No active objective with name: {objName}");
@@ -51,7 +76,7 @@ namespace QuestSystem
                 return;
             }
             
-            var objective = objectives.FindByName(objName);
+            var objective = FindByName(objName);
             if (objective == null)
             {
                 Debug.LogWarning($"No active objective with name: {objName}");
