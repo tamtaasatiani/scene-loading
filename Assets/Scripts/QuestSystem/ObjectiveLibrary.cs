@@ -27,6 +27,12 @@ namespace QuestSystem
             var result = objectives.FirstOrDefault(objective => objective.Name == objName);
             return result;
         }
+
+        public Objective FindByHash(int hashCode)
+        {
+            var result = objectives.FirstOrDefault(objective => objective.GetHashCode() == hashCode);
+            return result;
+        }
         
         /*
         private void OnEnable()

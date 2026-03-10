@@ -1287,6 +1287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd552116ff5cabe47b2916090945bca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objective: {fileID: 11400000, guid: 7f5fe94266aa32545b702a486d4da73c, type: 2}
 --- !u!43 &770728417
 Mesh:
   m_ObjectHideFlags: 0
@@ -5562,6 +5563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53dff202600db94eb77e1c1bdc1d858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj: {fileID: 11400000, guid: 7f5fe94266aa32545b702a486d4da73c, type: 2}
 --- !u!1 &1704028734
 GameObject:
   m_ObjectHideFlags: 0
@@ -5572,7 +5574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1704028735}
   m_Layer: 0
-  m_Name: ---- MANAGERS----
+  m_Name: ----MANAGERS----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

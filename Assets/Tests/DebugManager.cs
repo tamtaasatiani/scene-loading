@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DebugManager : MonoBehaviour
 {
+    [SerializeField] private Objective obj;
+    
     private void OnEnable()
     {
-        ObjectiveManager.Instance.AddListener("PressBackspace", NotifyBackspacePressed);  
+        ObjectiveManager.Instance.AddListener(obj.GetHashCode(), NotifyBackspacePressed);  
     }
 
     private void NotifyBackspacePressed(Objective objective)
@@ -16,6 +18,6 @@ public class DebugManager : MonoBehaviour
     
     private void OnDisable()
     {
-        ObjectiveManager.Instance.RemoveListener("PressBackspace", NotifyBackspacePressed);
+        ObjectiveManager.Instance.RemoveListener(obj.GetHashCode(), NotifyBackspacePressed);
     }
 }

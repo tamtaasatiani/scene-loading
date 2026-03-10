@@ -31,6 +31,12 @@ namespace QuestSystem
             var result = _activeObjectives.FirstOrDefault(objective => objective.Name == objName);
             return result;
         }
+
+        private Objective FindActiveByHash(int hashCode)
+        {
+            var result = _activeObjectives.FirstOrDefault(objective => objective.GetHashCode() == hashCode);
+            return result;
+        }
         
         public Objective FindByName(string objName)
         {
@@ -38,7 +44,13 @@ namespace QuestSystem
             return result;
         }
 
-        public void AddListener(string objName, Action<Objective> @event)
+        private Objective FindByHash(int hashCode)
+        {
+            var result = objectives.FindByHash(hashCode);
+            return result;
+        }
+
+        public void AddListener(int hashCode, Action<Objective> @event)
         {
             if (objectives == null)
             {
@@ -46,17 +58,17 @@ namespace QuestSystem
                 return;
             }
             
-            var objective = FindByName(objName);
+            var objective = FindByHash(hashCode);
             if (objective == null)
             {
-                Debug.Log($"No active objective with name: {objName}");
+                Debug.Log($"No active objective with name: {hashCode}");
                 return;
             }
             
             objective.OnObjectiveUpdated += @event;
         }
 
-        public void RemoveListener(string objName, Action<Objective> @event)
+        public void RemoveListener(int hashCode, Action<Objective> @event)
         {
             if (objectives == null)
             {
@@ -64,17 +76,17 @@ namespace QuestSystem
                 return;
             }
 
-            var objective = FindByName(objName);
+            var objective = FindByHash(hashCode);
             if (objective == null)
             {
-                Debug.Log($"No active objective with name: {objName}");
+                Debug.Log($"No active objective with name: {hashCode}");
                 return;
             }
             
             objective.OnObjectiveUpdated -= @event;
         }
 
-        public void Broadcast(string objName)
+        public void Broadcast(int hashCode)
         {
             if (objectives == null)
             {
@@ -82,10 +94,10 @@ namespace QuestSystem
                 return;
             }
             
-            var objective = FindActiveByName(objName);
+            var objective = FindActiveByHash(hashCode);
             if (objective == null)
             {
-                Debug.LogWarning($"No active objective with name: {objName}");
+                Debug.LogWarning($"No active objective with name: {hashCode}");
                 return;
             }
             
