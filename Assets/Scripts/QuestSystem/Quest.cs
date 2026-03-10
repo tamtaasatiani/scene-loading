@@ -27,7 +27,7 @@ namespace QuestSystem
             OnQuestStarted?.Invoke(this);
 
             foreach (var objective in objectives)
-                objective.Start();
+                objective.StartObjective();
         }
 
         private void OnEnable()

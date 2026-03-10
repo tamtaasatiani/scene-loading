@@ -12,9 +12,16 @@ namespace QuestSystem
         [SerializeField] private int amount;
         
         public KeyCode Key { get => key; private set => key = value; }
+        
+        public override void StartObjective()
+        {
+            _completedAmount = 0;
+            base.StartObjective();
+        }
 
         public override void UpdateObjective()
         {
+            if (!_isActive) return;
             if (IsCompleted) return;
             
             _completedAmount++;
