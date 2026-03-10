@@ -5,7 +5,7 @@ using UnityEngine;
 public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> where TManager : MonoBehaviour where TObserved : ScriptableObject, IUpdateable
 {
     [SerializeField] protected Library<TObserved> library;
-
+    
     public void AddListener(int hashCode, Action<ScriptableObject> callback)
     {
         if (library == null)
