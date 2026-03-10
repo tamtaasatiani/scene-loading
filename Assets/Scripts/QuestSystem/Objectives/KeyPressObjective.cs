@@ -13,13 +13,13 @@ namespace QuestSystem
         
         public KeyCode Key { get => key; private set => key = value; }
         
-        public override void StartObjective()
+        public override void CustomStart()
         {
             _completedAmount = 0;
-            base.StartObjective();
+            base.CustomStart();
         }
 
-        public override void UpdateObjective()
+        public override void CustomUpdate()
         {
             if (!_isActive) return;
             if (IsCompleted) return;
@@ -31,7 +31,7 @@ namespace QuestSystem
                 Complete();
             }
 
-            base.UpdateObjective();
+            base.CustomUpdate();
         }
     }
 }

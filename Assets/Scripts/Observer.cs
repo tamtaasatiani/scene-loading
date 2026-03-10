@@ -6,7 +6,7 @@ public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> wh
 {
     [SerializeField] protected Library<TObserved> library;
 
-    public void AddListener(int hashCode, Action callback)
+    public void AddListener(int hashCode, Action<ScriptableObject> callback)
     {
         if (library == null)
         {
@@ -25,7 +25,7 @@ public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> wh
         item.OnUpdated += callback;
     }
 
-    public void RemoveListener(int hashCode, Action callback)
+    public void RemoveListener(int hashCode, Action<ScriptableObject> callback)
     {
         if (library == null)
         {
@@ -44,11 +44,21 @@ public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> wh
         item.OnUpdated -= callback;
     }
 
+    public virtual void Broadcast(int hashCode, Action callback = null)
+    {
+        callback?.Invoke();
+    }
+
     public void RemoveAllListeners()
     {
         foreach (var item in library.GetAll())
         {
             item.RemoveAllListeners();
         }
+    }
+
+    private void OnDisable()
+    {
+        RemoveAllListeners();
     }
 }

@@ -11,7 +11,7 @@ public class DebugManager : MonoBehaviour
         ObjectiveManager.Instance.AddListener(obj.GetHashCode(), NotifyBackspacePressed);  
     }
 
-    private void NotifyBackspacePressed(Objective objective)
+    private void NotifyBackspacePressed(ScriptableObject objective)
     {
         Debug.Log("Backspace pressed");
     }

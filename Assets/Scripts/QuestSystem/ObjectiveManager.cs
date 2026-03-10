@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace QuestSystem
 {
-    public class ObjectiveManager : SingletonMonoBehaviour<ObjectiveManager>
+    public class ObjectiveManager : Observer<ObjectiveManager, Objective>
     {
         private List<Objective> _activeObjectives = new List<Objective>();
         
@@ -21,9 +21,16 @@ namespace QuestSystem
             objectives.UnsubscribeToObjectiveStarted(AddToActiveObjectives);
         }
 
-        private void AddToActiveObjectives(Objective objective)
+        private void AddToActiveObjectives(ScriptableObject objective)
         {
-            _activeObjectives.Add(objective);
+            var obj = objective as Objective;
+            if (obj == null)
+            {
+                Debug.LogError($"Provided scriptableobject is not an objective, in {this}");
+                return;
+            }
+            
+            _activeObjectives.Add(obj);
         }
         
         public Objective FindActiveByName(string objName)
@@ -43,50 +50,8 @@ namespace QuestSystem
             var result = objectives.FindByName(objName);
             return result;
         }
-
-        private Objective FindByHash(int hashCode)
-        {
-            var result = objectives.FindByHash(hashCode);
-            return result;
-        }
-
-        public void AddListener(int hashCode, Action<Objective> @event)
-        {
-            if (objectives == null)
-            {
-                Debug.LogError($"No objective library provided: {objectives}");
-                return;
-            }
-            
-            var objective = FindByHash(hashCode);
-            if (objective == null)
-            {
-                Debug.Log($"No active objective with name: {hashCode}");
-                return;
-            }
-            
-            objective.OnObjectiveUpdated += @event;
-        }
-
-        public void RemoveListener(int hashCode, Action<Objective> @event)
-        {
-            if (objectives == null)
-            {
-                Debug.LogError($"No objective library provided: {objectives}");
-                return;
-            }
-
-            var objective = FindByHash(hashCode);
-            if (objective == null)
-            {
-                Debug.Log($"No active objective with name: {hashCode}");
-                return;
-            }
-            
-            objective.OnObjectiveUpdated -= @event;
-        }
-
-        public void Broadcast(int hashCode)
+        
+        public override void Broadcast(int hashCode, Action callback = null)
         {
             if (objectives == null)
             {
@@ -97,11 +62,11 @@ namespace QuestSystem
             var objective = FindActiveByHash(hashCode);
             if (objective == null)
             {
-                Debug.LogWarning($"No active objective with name: {hashCode}");
+                Debug.LogWarning("No such active objective");
                 return;
             }
             
-            objective.UpdateObjective();
+            objective.CustomUpdate();
         }
     }
 }

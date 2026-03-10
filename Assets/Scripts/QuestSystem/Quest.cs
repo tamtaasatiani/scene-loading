@@ -27,16 +27,16 @@ namespace QuestSystem
             OnQuestStarted?.Invoke(this);
 
             foreach (var objective in objectives)
-                objective.StartObjective();
+                objective.CustomStart();
         }
 
         private void OnEnable()
         {
             foreach (var objective in objectives) 
-                objective.OnObjectiveCompleted += TryCompleteQuest;
+                objective.OnCompleted += TryCompleteQuest;
         }
 
-        private void TryCompleteQuest(Objective objective)
+        private void TryCompleteQuest(ScriptableObject objective)
         {
             bool completed = objectives.Where(obj => obj.IsCompleted == false).ToList().Count <= 0;
             if (!completed) return;
@@ -54,7 +54,7 @@ namespace QuestSystem
         private void OnDisable()
         {
             foreach (var objective in objectives)
-                objective.OnObjectiveCompleted -= TryCompleteQuest;
+                objective.OnCompleted -= TryCompleteQuest;
         }
     }
 

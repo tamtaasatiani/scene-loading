@@ -6,59 +6,24 @@ using UnityEngine;
 namespace QuestSystem
 {
     [CreateAssetMenu(menuName = "Library/Objective")]
-    public class ObjectiveLibrary : ScriptableObject
+    public class ObjectiveLibrary : Library<Objective>
     {
-        [SerializeField] private List<Objective> objectives;
-
-        public void SubscribeToObjectiveStarted(Action<Objective> action)
+        public void SubscribeToObjectiveStarted(Action<ScriptableObject> action)
         {
-            foreach (var objective in objectives)
-                objective.OnObjectiveStarted += action;
+            foreach (var objective in items)
+                objective.OnStarted += action;
         }
 
-        public void UnsubscribeToObjectiveStarted(Action<Objective> action)
+        public void UnsubscribeToObjectiveStarted(Action<ScriptableObject> action)
         {
-            foreach (var objective in objectives)
-                objective.OnObjectiveStarted -= action;
+            foreach (var objective in items)
+                objective.OnStarted -= action;
         }
         
         public Objective FindByName(string objName)
         {
-            var result = objectives.FirstOrDefault(objective => objective.Name == objName);
+            var result = items.FirstOrDefault(objective => objective.Name == objName);
             return result;
         }
-
-        public Objective FindByHash(int hashCode)
-        {
-            var result = objectives.FirstOrDefault(objective => objective.GetHashCode() == hashCode);
-            return result;
-        }
-        
-        /*
-        private void OnEnable()
-        {
-            foreach (var objective in objectives)
-            {
-                objective.OnObjectiveStarted += AddToActiveObjectives;
-            }
-        }
-
-        private void AddToActiveObjectives(Objective objective)
-        {
-            _activeObjectives.Add(objective);
-        }
-        
-        public Objective FindByName(string objName)
-        {
-            var result = _activeObjectives.FirstOrDefault(objective => objective.Name == objName);
-            return result;
-        }
-
-        private void OnDisable()
-        {
-            foreach (var objective in objectives)
-                objective.OnObjectiveStarted -= AddToActiveObjectives;
-        }
-        */
     }
 }
