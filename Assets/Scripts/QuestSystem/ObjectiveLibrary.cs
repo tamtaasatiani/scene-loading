@@ -22,6 +22,12 @@ namespace QuestSystem
                 objective.OnObjectiveStarted -= action;
         }
         
+        public Objective FindByName(string objName)
+        {
+            var result = objectives.FirstOrDefault(objective => objective.Name == objName);
+            return result;
+        }
+        
         /*
         private void OnEnable()
         {

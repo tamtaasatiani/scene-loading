@@ -13,7 +13,7 @@ namespace QuestSystem
         private void OnEnable()
         {
             testQuest.OnQuestStarted += AddQuest;
-            testQuest.StartQuest();
+            //testQuest.StartQuest();
         }
         
         private void OnDisable()

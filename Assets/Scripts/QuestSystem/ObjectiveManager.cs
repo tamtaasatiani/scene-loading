@@ -26,9 +26,15 @@ namespace QuestSystem
             _activeObjectives.Add(objective);
         }
         
-        public Objective FindByName(string objName)
+        public Objective FindActiveByName(string objName)
         {
             var result = _activeObjectives.FirstOrDefault(objective => objective.Name == objName);
+            return result;
+        }
+        
+        public Objective FindByName(string objName)
+        {
+            var result = objectives.FindByName(objName);
             return result;
         }
 
@@ -76,7 +82,7 @@ namespace QuestSystem
                 return;
             }
             
-            var objective = FindByName(objName);
+            var objective = FindActiveByName(objName);
             if (objective == null)
             {
                 Debug.LogWarning($"No active objective with name: {objName}");
