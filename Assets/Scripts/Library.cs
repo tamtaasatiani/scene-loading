@@ -1,14 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Library : ScriptableObject
+public class Library<T> : ScriptableObject where T : ScriptableObject
 {
-    [SerializeField] protected List<ScriptableObject> items;
+    [SerializeField] protected List<T> items;
     
-    public ScriptableObject FindByName(string objName)
+    public T FindByHash(int hashCode)
     {
-        //var result = objectives.FirstOrDefault(objective => objective.Name == objName);
-        //return result;
-        return null;
+        var result = items.FirstOrDefault(item => item.GetHashCode() == hashCode);
+        return result;
+    }
+
+    public List<T> GetAll()
+    {
+        return items;
     }
 }
