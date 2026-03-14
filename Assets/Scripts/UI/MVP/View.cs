@@ -6,11 +6,10 @@ namespace UI.MVP
     public class View : MonoBehaviour, IView
     {
         private IPresenter<IView> _presenter;
-        private IModel _model;
 
-        public virtual void Initialize(IModel model, Action disposeAction)
+        public virtual void Initialize(IPresenter<IView> presenter, Action disposeAction)
         {
-            _model = model;
+            _presenter = presenter;
         }
     }
 }

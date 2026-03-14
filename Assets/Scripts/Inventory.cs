@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : SingletonMonobehaviour<Inventory>
+public class Inventory : SingletonMonoBehaviour<Inventory>
 {
     private List<Item> _items;
 

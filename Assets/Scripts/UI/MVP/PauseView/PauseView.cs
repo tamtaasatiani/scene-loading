@@ -8,19 +8,39 @@ namespace UI.MVP.Pause
     {
         private PauseModel _model;
         
+        [SerializeField] private GameObject questsView;
+        
+        [Header("Buttons")]
         [SerializeField] private Button close;
+        [SerializeField] private Button quests;
+        [SerializeField] private Button closeQuests;
 
-        public override void Initialize(IModel model, Action disposeAction)
+
+        public override void Initialize(IPresenter<IView> presenter, Action disposeAction)
         {
-            _model = model as PauseModel;
             close.onClick.AddListener(() => disposeAction());
-            base.Initialize(model, disposeAction);
+            quests.onClick.AddListener(OpenQuestsView);
+            closeQuests.onClick.AddListener(CloseQuestsView);
+            
+            base.Initialize(presenter, disposeAction);
+        }
+
+        private void OpenQuestsView()
+        {
+            questsView.SetActive(true);
+        }
+
+        private void CloseQuestsView()
+        {
+            questsView.SetActive(false);
         }
 
         public void OnDestroy()
         {
             _model.OnClose?.Invoke();
             close.onClick.RemoveAllListeners();
+            quests.onClick.RemoveAllListeners();
+            closeQuests.onClick.RemoveAllListeners();
         }
     }
 }
