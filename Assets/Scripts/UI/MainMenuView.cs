@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -27,11 +28,11 @@ public class MainMenuView : MonoBehaviour
 
     private void HandleLoadLightScene()
     {
-        sceneLoader.LoadScene(lightSceneData);
+        sceneLoader.LoadScene(lightSceneData).Forget();
     }
 
     private void HandleLoadHeavyScene()
     {
-        sceneLoader.LoadScene(heavySceneData);
+        sceneLoader.LoadScene(heavySceneData).Forget();
     }
 }
