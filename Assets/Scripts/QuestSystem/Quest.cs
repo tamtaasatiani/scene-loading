@@ -5,7 +5,7 @@ using UnityEngine;
 namespace QuestSystem
 {
     [CreateAssetMenu(menuName = "Quest System/Quest")]
-    public class Quest : ScriptableObject
+    public class Quest : ScriptableObject, IUpdateable, IStartable, ICompletable
     {
         [SerializeField] private Objective[] objectives;
         [SerializeField] private Reward[] rewards;
@@ -18,22 +18,35 @@ namespace QuestSystem
             private set { _questState = value; }
         }
         
-        public event Action<Quest> OnQuestStarted;
-        public event Action<Quest> OnQuestCompleted;
-
-        public void StartQuest()
-        {
-            _questState = QuestState.Started;
-            OnQuestStarted?.Invoke(this);
-
-            foreach (var objective in objectives)
-                objective.CustomStart();
-        }
+        public event Action<ScriptableObject> OnStarted;
+        public event Action<ScriptableObject> OnUpdated;
+        public event Action<ScriptableObject> OnCompleted;
 
         private void OnEnable()
         {
             foreach (var objective in objectives) 
                 objective.OnCompleted += TryCompleteQuest;
+        }
+
+        public void CustomStart()
+        {
+            _questState = QuestState.Started;
+
+            foreach (var objective in objectives)
+                objective.CustomStart();
+            OnStarted?.Invoke(this);
+        }
+        
+        public void CustomUpdate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Complete()
+        {
+            Debug.Log("Quest completed");
+            _questState = QuestState.Completed;
+            OnCompleted?.Invoke(this);
         }
 
         private void TryCompleteQuest(ScriptableObject objective)
@@ -44,17 +57,11 @@ namespace QuestSystem
             Complete();
         }
 
-        private void Complete()
+        public void RemoveAllListeners()
         {
-            Debug.Log("Quest completed");
-            _questState = QuestState.Completed;
-            OnQuestCompleted?.Invoke(this);
-        }
-
-        private void OnDisable()
-        {
-            foreach (var objective in objectives)
-                objective.OnCompleted -= TryCompleteQuest;
+            OnStarted = null;
+            OnUpdated = null;
+            OnCompleted = null;
         }
     }
 

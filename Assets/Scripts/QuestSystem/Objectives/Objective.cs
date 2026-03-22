@@ -42,7 +42,9 @@ namespace QuestSystem
 
         public void RemoveAllListeners()
         {
+            OnStarted = null;
             OnUpdated = null;
+            OnCompleted = null;
         }
     }
 }
