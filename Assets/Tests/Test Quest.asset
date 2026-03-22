@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2daff115881bcab47b1cb1ec28ac8407, type: 3}
-  m_Name: ObjectiveLibrary
+  m_Script: {fileID: 11500000, guid: 5763ff0c9ccbdf044986bd72e2ce07da, type: 3}
+  m_Name: Test Quest
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 7f5fe94266aa32545b702a486d4da73c, type: 2}
+  objectives: []
+  rewards: []

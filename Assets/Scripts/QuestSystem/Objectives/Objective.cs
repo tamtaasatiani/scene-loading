@@ -18,22 +18,21 @@ namespace QuestSystem
         public event Action<ScriptableObject> OnUpdated;
 
         
-        public virtual void CustomStart()
+        public virtual void CustomStart(ScriptableObject obj)
         {
-            
             _isActive = true;
             IsCompleted = false;
             OnStarted?.Invoke(this);
         }
         
-        public virtual void CustomUpdate()
+        public virtual void CustomUpdate(ScriptableObject obj)
         {
             if (!_isActive) return;
             if (IsCompleted) return;
             OnUpdated?.Invoke(this);
         }
 
-        public virtual void Complete()
+        public virtual void Complete(ScriptableObject obj)
         {
             _isActive = false;
             IsCompleted = true;

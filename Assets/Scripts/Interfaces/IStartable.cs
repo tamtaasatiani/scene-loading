@@ -5,5 +5,5 @@ public interface IStartable
 {
     event Action<ScriptableObject> OnStarted;
     
-    void CustomStart();
+    void CustomStart(ScriptableObject obj);
 }

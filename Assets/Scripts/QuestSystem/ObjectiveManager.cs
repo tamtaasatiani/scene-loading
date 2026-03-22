@@ -30,7 +30,7 @@ namespace QuestSystem
                 return;
             }
             
-            lib.UnsubscribeToObjectiveStarted(AddToActiveObjectives);
+            lib.UnsubscribeFromObjectiveStarted(AddToActiveObjectives);
         }
 
         private void AddToActiveObjectives(ScriptableObject objective)
@@ -78,7 +78,7 @@ namespace QuestSystem
                 return;
             }
             
-            objective.CustomUpdate();
+            objective.CustomUpdate(objective);
         }
     }
 }

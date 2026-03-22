@@ -5,6 +5,6 @@ public interface IUpdateable
 {
     event Action<ScriptableObject> OnUpdated;
     
-    void CustomUpdate();
+    void CustomUpdate(ScriptableObject obj);
     void RemoveAllListeners();
 }

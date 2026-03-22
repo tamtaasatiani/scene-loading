@@ -5,5 +5,5 @@ public interface ICompletable
 {
     event Action<ScriptableObject> OnCompleted;
     
-    void Complete();
+    void Complete(ScriptableObject obj);
 }

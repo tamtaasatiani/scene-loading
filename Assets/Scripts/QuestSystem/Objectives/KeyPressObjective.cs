@@ -13,6 +13,7 @@ namespace QuestSystem
         
         public KeyCode Key { get => key; private set => key = value; }
         
+        /*
         public override void CustomStart()
         {
             _completedAmount = 0;
@@ -33,5 +34,6 @@ namespace QuestSystem
 
             base.CustomUpdate();
         }
+        */
     }
 }

@@ -21,40 +21,58 @@ namespace QuestSystem
         public event Action<ScriptableObject> OnStarted;
         public event Action<ScriptableObject> OnUpdated;
         public event Action<ScriptableObject> OnCompleted;
-
-        private void OnEnable()
+        
+        public void SubscribeToObjectiveUpdated(Action<ScriptableObject> action)
         {
-            foreach (var objective in objectives) 
-                objective.OnCompleted += TryCompleteQuest;
+            foreach (var objective in objectives)
+                objective.OnUpdated += CustomUpdate;
         }
 
-        public void CustomStart()
+        public void UnsubscribeFromObjectiveUpdated(Action<ScriptableObject> action)
+        {
+            foreach (var objective in objectives)
+                objective.OnUpdated -= action;
+        }
+        
+        public void SubscribeToObjectiveCompleted(Action<ScriptableObject> action)
+        {
+            foreach (var objective in objectives)
+                objective.OnCompleted += action;
+        }
+        
+        public void UnsubscribeFromObjectiveCompleted(Action<ScriptableObject> action)
+        {
+            foreach (var objective in objectives)
+                objective.OnCompleted -= action;
+        }
+
+        public void CustomStart(ScriptableObject obj)
         {
             _questState = QuestState.Started;
 
             foreach (var objective in objectives)
-                objective.CustomStart();
+                objective.CustomStart(objective);
             OnStarted?.Invoke(this);
         }
         
-        public void CustomUpdate()
+        public void CustomUpdate(ScriptableObject obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Complete()
+        public void Complete(ScriptableObject obj)
         {
             Debug.Log("Quest completed");
             _questState = QuestState.Completed;
             OnCompleted?.Invoke(this);
         }
 
-        private void TryCompleteQuest(ScriptableObject objective)
+        private void TryCompleteQuest(ScriptableObject quest)
         {
             bool completed = objectives.Where(obj => obj.IsCompleted == false).ToList().Count <= 0;
             if (!completed) return;
             
-            Complete();
+            Complete(quest);
         }
 
         public void RemoveAllListeners()
