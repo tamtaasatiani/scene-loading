@@ -20,11 +20,6 @@ namespace UI.MVP
             _obj = await Addressables.InstantiateAsync(typeof(TView).Name);
             _view = _obj.GetComponent<TView>();
             var presenter = this as IPresenter<IView>;
-            if (presenter == null)
-            {
-                Debug.LogError("Cast is not valid");
-                return;
-            }
             
             _obj.transform.parent = canvas.transform;
             _obj.transform.localPosition = new Vector3(0, 0, 0);
@@ -46,7 +41,7 @@ namespace UI.MVP
 
         public void DestroyView(IView view)
         {
-            throw new System.NotImplementedException();
+            Dispose();
         }
 
         public virtual void Dispose()
