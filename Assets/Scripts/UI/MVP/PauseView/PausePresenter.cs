@@ -17,8 +17,12 @@ namespace UI.MVP.Pause
                 Debug.LogError($"PausePresenter: model is invalid, {this}");
                 return;
             }
-            
-            _model.OnClose += Dispose;
+        }
+
+        public void Close()
+        {
+            _model.OnClose?.Invoke();
+            Dispose();
         }
         
         public override void Dispose()

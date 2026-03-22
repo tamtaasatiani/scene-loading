@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 namespace UI.MVP
 {
-    public class Presenter<TView> : IPresenter<TView> where TView : View
+    public class Presenter<TView> : IPresenter<IView> where TView : IView
     {
         protected TView _view;
         private GameObject _obj;
@@ -20,11 +20,12 @@ namespace UI.MVP
             _obj = await Addressables.InstantiateAsync(typeof(TView).Name);
             _view = _obj.GetComponent<TView>();
             var presenter = this as IPresenter<IView>;
+            
             _obj.transform.parent = canvas.transform;
             _obj.transform.localPosition = new Vector3(0, 0, 0);
             _obj.transform.localRotation = Quaternion.identity;
             _obj.transform.localScale = Vector3.one;
-            _view.Initialize((IPresenter<IView>)this, () => DestroyView(_view));
+            _view.Initialize(presenter);
         }
 
         public void DestroyView(TView view)
@@ -38,9 +39,20 @@ namespace UI.MVP
             return UniTask.CompletedTask;
         }
 
+        public void DestroyView(IView view)
+        {
+            Dispose();
+        }
+
         public virtual void Dispose()
         {
-            GameObject.Destroy(_view.gameObject);
+            var v = _view as View;
+            if (v == null)
+            {
+                Debug.LogError("Cast is not valid");
+                return;
+            }
+            GameObject.Destroy(v.gameObject);
         }
     }
 }
