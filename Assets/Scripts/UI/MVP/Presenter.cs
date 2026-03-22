@@ -25,7 +25,7 @@ namespace UI.MVP
             _obj.transform.localPosition = new Vector3(0, 0, 0);
             _obj.transform.localRotation = Quaternion.identity;
             _obj.transform.localScale = Vector3.one;
-            _view.Initialize(presenter, () => DestroyView(_view));
+            _view.Initialize(presenter);
         }
 
         public void DestroyView(TView view)

@@ -6,6 +6,8 @@ namespace UI.MVP.Pause
 {
     public class PauseView : View
     {
+        private PausePresenter _pausePresenter;
+        
         [SerializeField] private GameObject questsView;
         
         [Header("Buttons")]
@@ -14,13 +16,21 @@ namespace UI.MVP.Pause
         [SerializeField] private Button closeQuests;
 
 
-        public override void Initialize(IPresenter<IView> presenter, Action disposeAction)
+        public override void Initialize(IPresenter<IView> presenter)
         {
-            close.onClick.AddListener(() => disposeAction());
+            _pausePresenter = presenter as PausePresenter;
+
+            if (_pausePresenter == null)
+            {
+                Debug.LogError("Invalid cast");
+                return;
+            }
+            
+            close.onClick.AddListener(Close);
             quests.onClick.AddListener(OpenQuestsView);
             closeQuests.onClick.AddListener(CloseQuestsView);
             
-            base.Initialize(presenter, disposeAction);
+            base.Initialize(presenter);
         }
 
         private void OpenQuestsView()
@@ -31,6 +41,11 @@ namespace UI.MVP.Pause
         private void CloseQuestsView()
         {
             questsView.SetActive(false);
+        }
+
+        private void Close()
+        {
+            _pausePresenter.Close();
         }
 
         public void OnDestroy()

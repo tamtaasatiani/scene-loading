@@ -20,7 +20,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void UpdatePlayState()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             TransitionToPauseState();
         }
