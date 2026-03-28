@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-public interface IUpdateable
+public interface IUpdateable<T>
 {
-    event Action<ScriptableObject> OnUpdated;
+    event Action<T> OnUpdated;
     
-    void CustomUpdate(ScriptableObject obj);
+    void CustomUpdate(T obj);
     void RemoveAllListeners();
 }

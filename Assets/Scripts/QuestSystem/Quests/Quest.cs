@@ -5,7 +5,7 @@ using UnityEngine;
 namespace QuestSystem
 {
     [CreateAssetMenu(menuName = "Quest System/Quest")]
-    public class Quest : ScriptableObject, IUpdateable, IStartable, ICompletable
+    public class Quest : ScriptableObject, IUpdateable<Quest>, IStartable<Quest>, ICompletable<Quest>
     {
         [SerializeField] private Objective[] objectives;
         [SerializeField] private Reward[] rewards;
@@ -18,35 +18,36 @@ namespace QuestSystem
             private set { _questState = value; }
         }
         
-        public event Action<ScriptableObject> OnStarted;
-        public event Action<ScriptableObject> OnUpdated;
-        public event Action<ScriptableObject> OnCompleted;
         
-        public void SubscribeToObjectiveUpdated(Action<ScriptableObject> action)
+        public event Action<Quest> OnStarted;
+        public event Action<Quest> OnUpdated;
+        public event Action<Quest> OnCompleted;
+        
+        public void SubscribeToObjectiveUpdated(Action<Quest> action)
         {
             foreach (var objective in objectives)
-                objective.OnUpdated += CustomUpdate;
+                objective.OnUpdated += HandleUpdated;
         }
 
-        public void UnsubscribeFromObjectiveUpdated(Action<ScriptableObject> action)
+        public void UnsubscribeFromObjectiveUpdated(Action<Quest> action)
         {
             foreach (var objective in objectives)
-                objective.OnUpdated -= action;
+                objective.OnUpdated -= HandleUpdated;
         }
         
-        public void SubscribeToObjectiveCompleted(Action<ScriptableObject> action)
+        public void SubscribeToObjectiveCompleted(Action<Quest> action)
         {
             foreach (var objective in objectives)
-                objective.OnCompleted += action;
+                objective.OnCompleted += HandleCompleted;
         }
         
-        public void UnsubscribeFromObjectiveCompleted(Action<ScriptableObject> action)
+        public void UnsubscribeFromObjectiveCompleted(Action<Quest> action)
         {
             foreach (var objective in objectives)
-                objective.OnCompleted -= action;
+                objective.OnCompleted -= HandleCompleted;
         }
 
-        public void CustomStart(ScriptableObject obj)
+        public void CustomStart(Quest obj)
         {
             _questState = QuestState.Started;
 
@@ -54,20 +55,30 @@ namespace QuestSystem
                 objective.CustomStart(objective);
             OnStarted?.Invoke(this);
         }
+
+        private void HandleUpdated(Objective obj)
+        {
+            CustomUpdate(this);
+        }
+
+        private void HandleCompleted(Objective obj)
+        {
+            Complete(this);
+        }
         
-        public void CustomUpdate(ScriptableObject obj)
+        public void CustomUpdate(Quest obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Complete(ScriptableObject obj)
+        public void Complete(Quest obj)
         {
             Debug.Log("Quest completed");
             _questState = QuestState.Completed;
             OnCompleted?.Invoke(this);
         }
 
-        private void TryCompleteQuest(ScriptableObject quest)
+        private void TryCompleteQuest(Quest quest)
         {
             bool completed = objectives.Where(obj => obj.IsCompleted == false).ToList().Count <= 0;
             if (!completed) return;

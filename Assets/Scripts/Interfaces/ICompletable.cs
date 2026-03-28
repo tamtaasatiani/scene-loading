@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public interface ICompletable
+public interface ICompletable<T>
 {
-    event Action<ScriptableObject> OnCompleted;
+    event Action<T> OnCompleted;
     
-    void Complete(ScriptableObject obj);
+    void Complete(T obj);
 }

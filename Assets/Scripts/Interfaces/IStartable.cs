@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public interface IStartable
+public interface IStartable<T>
 {
-    event Action<ScriptableObject> OnStarted;
+    event Action<T> OnStarted;
     
-    void CustomStart(ScriptableObject obj);
+    void CustomStart(T obj);
 }

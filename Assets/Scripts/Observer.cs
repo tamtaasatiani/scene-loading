@@ -5,7 +5,7 @@ using QuestSystem;
 using UnityEngine;
 // ReSharper disable HeapView.CanAvoidClosure
 
-public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> where TManager : MonoBehaviour where TObserved : ScriptableObject, IUpdateable
+public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> where TManager : MonoBehaviour where TObserved : ScriptableObject, IUpdateable<TObserved>
 {
     protected bool _initialized = false;
     protected CancellationTokenSource _cancellationTokenSource;
@@ -22,7 +22,7 @@ public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> wh
         );
     }
     
-    public async UniTask AddListenerAsync(int hashCode, Action<ScriptableObject> callback)
+    public async UniTask AddListenerAsync(int hashCode, Action<TObserved> callback)
     {
         if (library == null)
         {
