@@ -8,7 +8,7 @@ public class DebugManager : MonoBehaviour
     
     private void OnEnable()
     {
-        ObjectiveManager.Instance.AddListener(obj.GetHashCode(), NotifyBackspacePressed);  
+        //ObjectiveManager.Instance.AddListener(obj.GetHashCode(), NotifyBackspacePressed);  
     }
 
     private void NotifyBackspacePressed(ScriptableObject objective)
@@ -18,6 +18,6 @@ public class DebugManager : MonoBehaviour
     
     private void OnDisable()
     {
-        ObjectiveManager.Instance.RemoveListener(obj.GetHashCode(), NotifyBackspacePressed);
+        //ObjectiveManager.Instance.RemoveListener(obj.GetHashCode(), NotifyBackspacePressed);
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+// ReSharper disable HeapView.CanAvoidClosure
 
 namespace QuestSystem
 {
@@ -36,8 +37,10 @@ namespace QuestSystem
                 quest.UnsubscribeFromObjectiveCompleted(quest.Complete);
             }
         }
+        
+        #region AddStateListeners
 
-        public async UniTask AddListenerStart(int hashCode, Action<ScriptableObject> callback)
+        public async UniTask AddListenerLearnAsync(int hashCode, Action<ScriptableObject> callback)
         {
             if (library == null)
             {
@@ -45,6 +48,12 @@ namespace QuestSystem
                 return;
             }
         
+            if (!_initialized)
+            {
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                await UniTask.WaitUntil(() => _initialized);
+            }
+
             var item = library.FindByHash(hashCode);
         
             if (item == null)
@@ -52,11 +61,10 @@ namespace QuestSystem
                 Debug.LogError($"Observer {this.GetType()} cannot find element in library");
                 return;
             }
-
-            if (!_questsInitialized)
-                await UniTask.WaitUntil(_questsInitialized, condition => condition);
-                
+            
             item.OnUpdated += callback;
         }
+        
+        #endregion
     }
 }
