@@ -63,7 +63,81 @@ namespace QuestSystem
                 return;
             }
             
+            item.OnLearned += callback;
+        }
+        
+        public async UniTask AddListenerStartAsync(int hashCode, Action<ScriptableObject> callback)
+        {
+            if (library == null)
+            {
+                Debug.LogError($"Observer {this.GetType()} cannot find element in empty library");
+                return;
+            }
+        
+            if (!_initialized)
+            {
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                await UniTask.WaitUntil(() => _initialized);
+            }
+
+            var item = library.FindByHash(hashCode);
+        
+            if (item == null)
+            {
+                Debug.LogError($"Observer {this.GetType()} cannot find element in library");
+                return;
+            }
+            
+            item.OnStarted += callback;
+        }
+        public async UniTask AddListenerUpdateAsync(int hashCode, Action<ScriptableObject> callback)
+        {
+            if (library == null)
+            {
+                Debug.LogError($"Observer {this.GetType()} cannot find element in empty library");
+                return;
+            }
+        
+            if (!_initialized)
+            {
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                await UniTask.WaitUntil(() => _initialized);
+            }
+
+            var item = library.FindByHash(hashCode);
+        
+            if (item == null)
+            {
+                Debug.LogError($"Observer {this.GetType()} cannot find element in library");
+                return;
+            }
+            
             item.OnUpdated += callback;
+        }
+        
+        public async UniTask AddListenerCompleteAsync(int hashCode, Action<ScriptableObject> callback)
+        {
+            if (library == null)
+            {
+                Debug.LogError($"Observer {this.GetType()} cannot find element in empty library");
+                return;
+            }
+        
+            if (!_initialized)
+            {
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                await UniTask.WaitUntil(() => _initialized);
+            }
+
+            var item = library.FindByHash(hashCode);
+        
+            if (item == null)
+            {
+                Debug.LogError($"Observer {this.GetType()} cannot find element in library");
+                return;
+            }
+            
+            item.OnCompleted += callback;
         }
         
         #endregion

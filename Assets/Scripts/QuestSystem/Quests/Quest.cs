@@ -49,13 +49,20 @@ namespace QuestSystem
                 objective.OnCompleted -= HandleCompleted;
         }
 
+        public virtual void Learn(Quest quest)
+        {
+            if (_questState != QuestState.Unlearned) return;
+            
+            ChangeState(QuestState.Learned, OnLearned);
+        }
+
         public void CustomStart(Quest obj)
         {
-            _questState = QuestState.Started;
+            if (_questState == QuestState.Started) return;
 
             foreach (var objective in objectives)
                 objective.CustomStart(objective);
-            OnStarted?.Invoke(this);
+            ChangeState(QuestState.Started, OnStarted);
         }
 
         public void HandleUpdated(Objective obj)
@@ -70,14 +77,32 @@ namespace QuestSystem
         
         public void CustomUpdate(Quest obj)
         {
-            throw new NotImplementedException();
+            if (_questState != QuestState.Started) return;
+            
+            OnUpdated?.Invoke(this);
         }
 
         public void Complete(Quest obj)
         {
+            if (_questState != QuestState.Started) return;
             Debug.Log("Quest completed");
-            _questState = QuestState.Completed;
-            OnCompleted?.Invoke(this);
+            
+            ChangeState(QuestState.Completed, OnCompleted);
+        }
+
+        public void Fail(Quest obj)
+        {
+            if (_questState != QuestState.Failed) return;
+            Debug.Log("Quest failed");
+            
+            ChangeState(QuestState.Failed, OnFailed);
+        }
+
+        public void Collect(Quest obj)
+        {
+            if (_questState != QuestState.Completed) return;
+            
+            ChangeState(QuestState.Collected, OnCollected);
         }
 
         private void TryCompleteQuest(Quest quest)
