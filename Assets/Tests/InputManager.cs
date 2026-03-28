@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            ObjectiveManager.Instance.Broadcast(objective.GetHashCode());
+            //ObjectiveManager.Instance.Broadcast(objective.GetHashCode());
         }
     }
 }
