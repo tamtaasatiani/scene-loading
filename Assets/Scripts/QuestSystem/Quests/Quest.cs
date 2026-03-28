@@ -17,31 +17,33 @@ namespace QuestSystem
             get { return _questState; }
             private set { _questState = value; }
         }
-        
-        
+
+        public event Action<Quest> OnLearned;
         public event Action<Quest> OnStarted;
         public event Action<Quest> OnUpdated;
         public event Action<Quest> OnCompleted;
+        public event Action<Quest> OnFailed;
+        public event Action<Quest> OnCollected;
         
-        public void SubscribeToObjectiveUpdated(Action<Quest> action)
+        public void SubscribeToObjectiveUpdated(Action<Objective> action)
         {
             foreach (var objective in objectives)
-                objective.OnUpdated += HandleUpdated;
+                objective.OnUpdated += action;
         }
 
-        public void UnsubscribeFromObjectiveUpdated(Action<Quest> action)
+        public void UnsubscribeFromObjectiveUpdated(Action<Objective> action)
         {
             foreach (var objective in objectives)
-                objective.OnUpdated -= HandleUpdated;
+                objective.OnUpdated -= action;
         }
         
-        public void SubscribeToObjectiveCompleted(Action<Quest> action)
+        public void SubscribeToObjectiveCompleted(Action<Objective> action)
         {
             foreach (var objective in objectives)
                 objective.OnCompleted += HandleCompleted;
         }
         
-        public void UnsubscribeFromObjectiveCompleted(Action<Quest> action)
+        public void UnsubscribeFromObjectiveCompleted(Action<Objective> action)
         {
             foreach (var objective in objectives)
                 objective.OnCompleted -= HandleCompleted;
@@ -56,14 +58,14 @@ namespace QuestSystem
             OnStarted?.Invoke(this);
         }
 
-        private void HandleUpdated(Objective obj)
+        public void HandleUpdated(Objective obj)
         {
             CustomUpdate(this);
         }
 
-        private void HandleCompleted(Objective obj)
+        public void HandleCompleted(Objective obj)
         {
-            Complete(this);
+            TryCompleteQuest(this);
         }
         
         public void CustomUpdate(Quest obj)
@@ -86,11 +88,20 @@ namespace QuestSystem
             Complete(quest);
         }
 
+        private void ChangeState(QuestState state, Action<Quest> action)
+        {
+            _questState = state;
+            action?.Invoke(this);
+        }
+
         public void RemoveAllListeners()
         {
+            OnLearned = null;
             OnStarted = null;
             OnUpdated = null;
             OnCompleted = null;
+            OnFailed = null;
+            OnCollected = null;
         }
     }
 

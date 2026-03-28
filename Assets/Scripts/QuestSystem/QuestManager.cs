@@ -20,10 +20,11 @@ namespace QuestSystem
         
         private void InitializeQuestsToObjectives()
         {
+            //TODO: move objective initialization to own quest
             foreach (var quest in library.GetAll())
             {
-                quest.SubscribeToObjectiveUpdated(quest.CustomUpdate);
-                quest.SubscribeToObjectiveCompleted(quest.Complete);
+                quest.SubscribeToObjectiveUpdated(quest.HandleUpdated);
+                quest.SubscribeToObjectiveCompleted(quest.HandleCompleted);
             }
             
             _questsInitialized = true;
@@ -33,8 +34,8 @@ namespace QuestSystem
         {
             foreach (var quest in library.GetAll())
             {
-                quest.UnsubscribeFromObjectiveUpdated(quest.CustomUpdate);
-                quest.UnsubscribeFromObjectiveCompleted(quest.Complete);
+                quest.UnsubscribeFromObjectiveUpdated(quest.HandleUpdated);
+                quest.UnsubscribeFromObjectiveCompleted(quest.HandleCompleted);
             }
         }
         
