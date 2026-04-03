@@ -9,14 +9,11 @@ namespace QuestSystem
     {
         [SerializeField] private Objective[] objectives;
         [SerializeField] private Reward[] rewards;
-        
-        private QuestState _questState = default(QuestState);
+        [SerializeField] private bool autoStart = false;
 
-        public QuestState QuestState
-        {
-            get { return _questState; }
-            private set { _questState = value; }
-        }
+        private QuestState _questState = QuestState.Unlearned;
+
+        public QuestState QuestState => _questState;
 
         public event Action<Quest> OnLearned;
         public event Action<Quest> OnStarted;
@@ -27,8 +24,11 @@ namespace QuestSystem
         
         public void SubscribeToObjectiveUpdated(Action<Objective> action)
         {
+            _questState = QuestState.Unlearned;
             foreach (var objective in objectives)
                 objective.OnUpdated += action;
+            
+            if (autoStart) CustomStart(this);
         }
 
         public void UnsubscribeFromObjectiveUpdated(Action<Objective> action)

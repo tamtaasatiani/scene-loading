@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5763ff0c9ccbdf044986bd72e2ce07da, type: 3}
   m_Name: Test Quest
   m_EditorClassIdentifier: 
-  objectives: []
+  objectives:
+  - {fileID: 11400000, guid: 7f5fe94266aa32545b702a486d4da73c, type: 2}
   rewards: []
+  autoStart: 1

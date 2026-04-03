@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using QuestSystem;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            //ObjectiveManager.Instance.Broadcast(objective.GetHashCode());
+            ObjectiveManager.Instance.BroadcastAsync(objective.GetHashCode()).Forget();
         }
     }
 }

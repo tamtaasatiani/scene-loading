@@ -80,7 +80,7 @@ namespace QuestSystem
                 await UniTask.WaitUntil(() => _initialized);
             }
             
-            var objective = FindActiveByHash(hashCode);
+            var objective = library.FindByHash(hashCode);
             if (objective == null)
             {
                 Debug.LogWarning("No such active objective");

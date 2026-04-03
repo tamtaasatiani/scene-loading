@@ -27,8 +27,6 @@ namespace QuestSystem
         
         public virtual void CustomUpdate(Objective obj)
         {
-            if (!_isActive) return;
-            if (IsCompleted) return;
             OnUpdated?.Invoke(this);
         }
 
