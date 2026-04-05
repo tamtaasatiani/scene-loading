@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using BetterAttributes.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ namespace QuestSystem
     public class Quest : ScriptableObject, IUpdateable<Quest>, IStartable<Quest>, ICompletable<Quest>
     {
         [SerializeField] private string questName;
-        [SerializeField] private Image icon;
+        [SerializeField, BetterIcon] private Image icon;
         [SerializeField] private Objective[] objectives;
         [SerializeField] private Reward[] rewards;
         [SerializeField] private bool autoStart = false;
