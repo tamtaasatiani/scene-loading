@@ -22,7 +22,7 @@ public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> wh
         );
     }
     
-    public async UniTask AddListenerAsync(int hashCode, Action<TObserved> callback)
+    public virtual async UniTask AddListenerAsync(int hashCode, Action<TObserved> callback)
     {
         if (library == null)
         {
@@ -47,7 +47,7 @@ public class Observer<TManager, TObserved> : SingletonMonoBehaviour<TManager> wh
         item.OnUpdated += callback;
     }
 
-    public async UniTask RemoveListenerAsync(int hashCode, Action<ScriptableObject> callback)
+    public virtual async UniTask RemoveListenerAsync(int hashCode, Action<TObserved> callback)
     {
         if (library == null)
         {

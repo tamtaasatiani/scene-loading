@@ -9,6 +9,7 @@ namespace UI.MVP.Pause
         private PausePresenter _pausePresenter;
         
         [SerializeField] private GameObject questsView;
+        [SerializeField] private QuestUIManager questUIManager;
         
         [Header("Buttons")]
         [SerializeField] private Button close;

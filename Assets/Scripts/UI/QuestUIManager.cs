@@ -10,5 +10,20 @@ namespace UI
         [SerializeField] private SerializedDictionary<QuestState, QuestConfig> questUIConfigs;
         
         private List<QuestUIElement> _uiElements;
+
+        private void OnEnable()
+        {
+            //QuestManager.Instance.AddListener
+        }
+
+        private void OnDisable()
+        {
+            
+        }
+
+        private void GetUIElements()
+        {
+            
+        }
     }
 }

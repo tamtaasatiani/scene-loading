@@ -27,6 +27,8 @@ namespace QuestSystem
         public event Action<Quest> OnCompleted;
         public event Action<Quest> OnFailed;
         public event Action<Quest> OnCollected;
+
+        public event Action<Quest> OnPoked;
         
         public void SubscribeToObjectiveUpdated(Action<Objective> action)
         {
@@ -69,6 +71,11 @@ namespace QuestSystem
             foreach (var objective in objectives)
                 objective.CustomStart(objective);
             ChangeState(QuestState.Started, OnStarted);
+        }
+
+        public void Poke(Quest quest)
+        {
+            OnPoked?.Invoke(quest);
         }
 
         public void HandleUpdated(Objective obj)
