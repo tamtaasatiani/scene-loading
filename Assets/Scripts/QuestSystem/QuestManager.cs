@@ -8,7 +8,6 @@ namespace QuestSystem
 {
     public class QuestManager : Observer<QuestManager, Quest>
     {
-        private bool _questsInitialized = false;
         private List<Quest> _activeQuests = new List<Quest>();
         
         [SerializeField] private ObjectiveLibrary objectiveLibrary;
@@ -26,8 +25,8 @@ namespace QuestSystem
                 quest.SubscribeToObjectiveUpdated(quest.HandleUpdated);
                 quest.SubscribeToObjectiveCompleted(quest.HandleCompleted);
             }
-            
-            _questsInitialized = true;
+
+            _initialized = true;
         }
 
         private void OnDisable()
