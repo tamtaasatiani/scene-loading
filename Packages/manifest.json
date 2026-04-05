@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+    "com.quickeye.utility": "https://github.com/ErnSur/QuickEye-Utility.git",
     "com.tamtaasatiani.betterattributes": "https://github.com/tamtaasatiani/BetterAttributes.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.8.0",
