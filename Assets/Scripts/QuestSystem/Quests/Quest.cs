@@ -1,18 +1,23 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace QuestSystem
 {
     [CreateAssetMenu(menuName = "Quest System/Quest")]
     public class Quest : ScriptableObject, IUpdateable<Quest>, IStartable<Quest>, ICompletable<Quest>
     {
+        [SerializeField] private string questName;
+        [SerializeField] private Image icon;
         [SerializeField] private Objective[] objectives;
         [SerializeField] private Reward[] rewards;
         [SerializeField] private bool autoStart = false;
 
         private QuestState _questState = QuestState.Unlearned;
 
+        public string QuestName => questName;
+        public Image Icon => icon;
         public QuestState QuestState => _questState;
 
         public event Action<Quest> OnLearned;
