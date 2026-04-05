@@ -13,4 +13,22 @@ MonoBehaviour:
   m_Name: Quest UI Manager
   m_EditorClassIdentifier: 
   questUIConfigs:
-    list: []
+    list:
+    - key: 0
+      value: {fileID: 11400000, guid: f4d3945f65515074eb8f2f8aba3f472d, type: 2}
+      duplicatedKey: 0
+    - key: 1
+      value: {fileID: 11400000, guid: 59e6f7127c03aa34ca39438ea3131c5f, type: 2}
+      duplicatedKey: 0
+    - key: 2
+      value: {fileID: 11400000, guid: f8a6029bd947cab4ba93decde397334f, type: 2}
+      duplicatedKey: 0
+    - key: 3
+      value: {fileID: 11400000, guid: 6c681abfb8059c74eb687a0cdb7f41aa, type: 2}
+      duplicatedKey: 0
+    - key: 4
+      value: {fileID: 11400000, guid: 99a506ca26da17349b7591da2b0eb641, type: 2}
+      duplicatedKey: 0
+    - key: 5
+      value: {fileID: 11400000, guid: 28300568fb8e5bd4ba76a60957c3ae53, type: 2}
+      duplicatedKey: 0
