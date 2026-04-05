@@ -111,7 +111,7 @@ namespace QuestSystem
             callback?.Invoke();
         }
         
-        public async UniTask AddListenerPokeAllAsync(int hashCode, Action<ScriptableObject> callback)
+        public async UniTask AddListenerPokeAllAsync(Action<Quest> callback)
         {
             if (library == null)
             {
@@ -131,7 +131,7 @@ namespace QuestSystem
                 quest.OnPoked += callback;
         }
         
-        public async UniTask RemoveListenerPokeAllAsync(int hashCode, Action<ScriptableObject> callback)
+        public async UniTask RemoveListenerPokeAllAsync(Action<Quest> callback)
         {
             if (library == null)
             {
@@ -151,7 +151,7 @@ namespace QuestSystem
                 quest.OnPoked -= callback;
         }
         
-        public async UniTask BroadcastPokeAllAsync(int hashCode, Action callback = null)
+        public async UniTask BroadcastPokeAllAsync(Action callback = null)
         {
             if (library == null)
             {

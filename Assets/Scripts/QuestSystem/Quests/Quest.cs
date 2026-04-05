@@ -10,7 +10,7 @@ namespace QuestSystem
     public class Quest : ScriptableObject, IUpdateable<Quest>, IStartable<Quest>, ICompletable<Quest>
     {
         [SerializeField] private string questName;
-        [SerializeField, BetterIcon] private Image icon;
+        [SerializeField, BetterIcon] private Sprite icon;
         [SerializeField] private Objective[] objectives;
         [SerializeField] private Reward[] rewards;
         [SerializeField] private bool autoStart = false;
@@ -18,7 +18,7 @@ namespace QuestSystem
         private QuestState _questState = QuestState.Unlearned;
 
         public string QuestName => questName;
-        public Image Icon => icon;
+        public Sprite Icon => icon;
         public QuestState QuestState => _questState;
 
         public event Action<Quest> OnLearned;
