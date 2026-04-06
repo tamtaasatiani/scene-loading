@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2daff115881bcab47b1cb1ec28ac8407, type: 3}
-  m_Name: ObjectiveLibrary
+  m_Script: {fileID: 11500000, guid: 24812a0560865c34d976b9b3c621e63b, type: 3}
+  m_Name: CollectedQuestConfig
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 7f5fe94266aa32545b702a486d4da73c, type: 2}
+  visible: 1

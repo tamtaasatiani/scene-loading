@@ -4,16 +4,16 @@ using UnityEngine.AddressableAssets;
 
 namespace UI.MVP
 {
-    public class Presenter<TView> : IPresenter<IView> where TView : IView
+    public class Presenter<TView> : ScriptableObject, IPresenter<IView> where TView : IView
     {
         protected TView _view;
         private GameObject _obj;
-        
-        public Presenter(IModel model, Canvas canvas)
+
+        public virtual void Initialize(IModel model, Canvas canvas)
         {
             CreateViewAsync(model, canvas).Forget();
         }
-
+        
         private async UniTask CreateViewAsync(IModel model, Canvas canvas)
         {
             //location: 

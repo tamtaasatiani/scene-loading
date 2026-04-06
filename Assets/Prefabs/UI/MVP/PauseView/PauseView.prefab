@@ -1153,6 +1153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questsView: {fileID: 4628970941082442700}
+  questsContainer: {fileID: 6457314832382079138}
+  questDisplayPrefab: {fileID: 8738717846867429253, guid: 9bf1ab65b2bfdf549bbe09517fdb0eb3, type: 3}
   close: {fileID: 4973003237618379904}
   quests: {fileID: 3496474088366774285}
   closeQuests: {fileID: 8036397598681691203}

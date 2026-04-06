@@ -9,6 +9,8 @@ namespace UI.MVP.Pause
         private PausePresenter _pausePresenter;
         
         [SerializeField] private GameObject questsView;
+        [SerializeField] private GameObject questsContainer;
+        [SerializeField] private GameObject questDisplayPrefab;
         
         [Header("Buttons")]
         [SerializeField] private Button close;
@@ -31,6 +33,7 @@ namespace UI.MVP.Pause
             closeQuests.onClick.AddListener(CloseQuestsView);
             
             base.Initialize(presenter);
+            _pausePresenter.InitializeQuestsView(questDisplayPrefab, questsContainer);
         }
 
         private void OpenQuestsView()

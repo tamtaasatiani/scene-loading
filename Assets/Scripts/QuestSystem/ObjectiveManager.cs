@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+// ReSharper disable HeapView.CanAvoidClosure
 
 namespace QuestSystem
 {
@@ -19,6 +21,7 @@ namespace QuestSystem
             }
             
             lib.SubscribeToObjectiveStarted(AddToActiveObjectives);
+            _initialized = true;
         }
 
         private void OnDisable()
@@ -30,7 +33,7 @@ namespace QuestSystem
                 return;
             }
             
-            lib.UnsubscribeToObjectiveStarted(AddToActiveObjectives);
+            lib.UnsubscribeFromObjectiveStarted(AddToActiveObjectives);
         }
 
         private void AddToActiveObjectives(ScriptableObject objective)
@@ -63,7 +66,7 @@ namespace QuestSystem
         //    return result;
         //}
         
-        public override void Broadcast(int hashCode, Action callback = null)
+        public override async UniTask BroadcastAsync(int hashCode, Action callback = null)
         {
             if (library == null)
             {
@@ -71,14 +74,20 @@ namespace QuestSystem
                 return;
             }
             
-            var objective = FindActiveByHash(hashCode);
+            if (!_initialized)
+            {
+                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                await UniTask.WaitUntil(() => _initialized);
+            }
+            
+            var objective = library.FindByHash(hashCode);
             if (objective == null)
             {
                 Debug.LogWarning("No such active objective");
                 return;
             }
             
-            objective.CustomUpdate();
+            objective.CustomUpdate(objective);
         }
     }
 }

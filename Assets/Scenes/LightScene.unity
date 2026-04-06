@@ -1318,6 +1318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 772611283}
+  pauseModel: {fileID: 11400000, guid: 2d524b69a686f6f40a2aa20a2d06438c, type: 2}
+  pausePresenter: {fileID: 11400000, guid: cfb3098dd9468c241a9cdcc6bb2f52f0, type: 2}
 --- !u!4 &676545118
 Transform:
   m_ObjectHideFlags: 0
@@ -6029,7 +6031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8657f9ab4423c14bbb6e3172a0fd5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testQuest: {fileID: 11400000, guid: 2a3ce59e168d7f148a4452d28695fa5d, type: 2}
+  library: {fileID: 11400000, guid: da165997faf19594cb1a62e7dc515a3e, type: 2}
+  objectiveLibrary: {fileID: 11400000, guid: 7040252b8834ae14a8c7fa032a67b228, type: 2}
 --- !u!1 &2014261034
 GameObject:
   m_ObjectHideFlags: 0

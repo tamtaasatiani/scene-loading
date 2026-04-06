@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 038bce1bf5688da41aab1aecbed55245, type: 3}
-  m_Name: PressBackspace5TimesObjective
+  m_Name: PressBackspace10TimesObjective
   m_EditorClassIdentifier: 
   objectiveName: PressBackspace
   key: 8
