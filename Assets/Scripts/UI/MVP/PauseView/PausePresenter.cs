@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace UI.MVP.Pause
 {
+    [CreateAssetMenu(menuName = "UI/MVP/Pause/Presenter")]
     public class PausePresenter : Presenter<PauseView>
     {
         private PauseModel _model;
-        
-        public PausePresenter(IModel model, Canvas canvas) : base(model, canvas)
+
+        public override void Initialize(IModel model, Canvas canvas)
         {
             _model = model as PauseModel;
 

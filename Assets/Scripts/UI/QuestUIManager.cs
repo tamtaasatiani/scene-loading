@@ -29,9 +29,9 @@ namespace UI
 
         private void ConfigureUIElements(Quest quest)
         {
-            //var uiElement = questUIConfigs[quest.QuestState].Configure(quest);
-            //if (uiElement != null)
-            //    _uiElements.Add(uiElement);
+            var uiElement = questUIConfigs[quest.QuestState].Configure(quest);
+            if (uiElement != null)
+                _uiElements.Add(uiElement);
         }
     }
 }
