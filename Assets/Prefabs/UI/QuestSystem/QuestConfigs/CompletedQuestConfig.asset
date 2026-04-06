@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: CompletedQuestConfig
   m_EditorClassIdentifier: 
   visible: 1
+  tick: {fileID: -1519791828, guid: 1a0ba6de662105a459c9f9aa055cb6fc, type: 3}

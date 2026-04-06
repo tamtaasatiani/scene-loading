@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace UI.MVP.Pause
 
         public override void Initialize(IModel model, Canvas canvas)
         {
+            base.Initialize(model, canvas);
+            
             _model = model as PauseModel;
 
             if (_model == null)
@@ -18,6 +21,13 @@ namespace UI.MVP.Pause
                 Debug.LogError($"PausePresenter: model is invalid, {this}");
                 return;
             }
+            
+            _model.QuestUIManager.Subscribe();
+        }
+
+        public List<QuestUIElement?> ReturnUIElements()
+        {
+            return _model.QuestUIManager.UIElements;
         }
 
         public void Close()
@@ -29,6 +39,7 @@ namespace UI.MVP.Pause
         public override void Dispose()
         {
             _model.OnClose = null;
+            _model.QuestUIManager.Unsubscribe();
             base.Dispose();
         }
     }

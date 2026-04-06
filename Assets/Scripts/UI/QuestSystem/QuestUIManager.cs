@@ -12,17 +12,17 @@ namespace UI
     {
         [SerializeField] private UnityDictionary<QuestState, QuestConfig> questUIConfigs = new();
         
-        private List<QuestUIElement?> _uiElements;
+        private List<QuestUIElement?> _uiElements = new();
         
         public List<QuestUIElement?> UIElements => _uiElements;
 
-        private void Subscribe()
+        public void Subscribe()
         {
             QuestManager.Instance.AddListenerPokeAllAsync(ConfigureUIElements).Forget();
             QuestManager.Instance.BroadcastPokeAllAsync().Forget();
         }
 
-        private void Unsubscribe()
+        public void Unsubscribe()
         {
             QuestManager.Instance.RemoveListenerPokeAllAsync(ConfigureUIElements).Forget();
         }

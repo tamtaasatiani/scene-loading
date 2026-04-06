@@ -9,6 +9,8 @@ namespace UI.MVP.Pause
         private PausePresenter _pausePresenter;
         
         [SerializeField] private GameObject questsView;
+        [SerializeField] private GameObject questsContainer;
+        [SerializeField] private GameObject questDisplayPrefab;
         
         [Header("Buttons")]
         [SerializeField] private Button close;
@@ -36,6 +38,13 @@ namespace UI.MVP.Pause
         private void OpenQuestsView()
         {
             questsView.SetActive(true);
+            var uiElements = _pausePresenter.ReturnUIElements();
+
+            foreach (var uiElement in uiElements)
+            {
+                var displayElement = Instantiate(questDisplayPrefab, questsContainer.transform);
+                
+            }
         }
 
         private void CloseQuestsView()

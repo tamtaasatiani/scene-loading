@@ -1318,6 +1318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 772611283}
+  pauseModel: {fileID: 11400000, guid: 2d524b69a686f6f40a2aa20a2d06438c, type: 2}
+  pausePresenter: {fileID: 11400000, guid: cfb3098dd9468c241a9cdcc6bb2f52f0, type: 2}
 --- !u!4 &676545118
 Transform:
   m_ObjectHideFlags: 0
