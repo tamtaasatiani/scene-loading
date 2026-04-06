@@ -8,8 +8,7 @@ public class InputManager : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
+        if (Input.GetKeyDown(KeyCode.Backspace)) {
             ObjectiveManager.Instance.BroadcastAsync(objective.GetHashCode()).Forget();
         }
     }

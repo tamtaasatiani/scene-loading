@@ -12,7 +12,12 @@ namespace QuestSystem
         [SerializeField] private int amount;
         
         public KeyCode Key { get => key; private set => key = value; }
-
+        
+        public override void CustomStart(Objective obj)
+        {
+            _completedAmount = 0;
+            base.CustomStart(obj);
+        }
 
         public override void CustomUpdate(Objective obj)
         {

@@ -16,7 +16,6 @@ namespace QuestSystem
         public event Action<Objective> OnStarted;
         public event Action<Objective> OnCompleted;
         public event Action<Objective> OnUpdated;
-
         
         public virtual void CustomStart(Objective obj)
         {

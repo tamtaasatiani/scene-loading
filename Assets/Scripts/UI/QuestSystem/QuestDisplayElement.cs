@@ -12,7 +12,6 @@ namespace UI
         private string _questName;
         private float _progress;
         private bool _progressible;
-        private ProgressBar _progressBar;
         
         [SerializeField] private Image icon;
         [SerializeField] private Image tick;
@@ -36,8 +35,7 @@ namespace UI
             questNameText.text = _questName;
 
             progressBar.gameObject.SetActive(_progressible);
-
-            _progressBar.value = _progress;
+            
             progressBar.GetComponent<Slider>().value = _progress;
         }
     }

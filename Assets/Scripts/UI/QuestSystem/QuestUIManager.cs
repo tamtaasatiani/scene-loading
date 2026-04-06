@@ -18,6 +18,7 @@ namespace UI
 
         public void Subscribe()
         {
+            _uiElements.Clear();
             QuestManager.Instance.AddListenerPokeAllAsync(ConfigureUIElements).Forget();
             QuestManager.Instance.BroadcastPokeAllAsync().Forget();
         }

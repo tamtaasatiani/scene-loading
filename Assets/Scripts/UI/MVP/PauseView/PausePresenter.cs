@@ -12,7 +12,6 @@ namespace UI.MVP.Pause
 
         public override void Initialize(IModel model, Canvas canvas)
         {
-            base.Initialize(model, canvas);
             
             _model = model as PauseModel;
 
@@ -23,11 +22,18 @@ namespace UI.MVP.Pause
             }
             
             _model.QuestUIManager.Subscribe();
+            base.Initialize(model, canvas);
         }
 
-        public List<QuestUIElement?> ReturnUIElements()
+        public void InitializeQuestsView(GameObject questDisplayPrefab, GameObject questsContainer)
         {
-            return _model.QuestUIManager.UIElements;
+            var uiElements = _model.QuestUIManager.UIElements;
+
+            foreach (var uiElement in uiElements)
+            {
+                var displayElement = Instantiate(questDisplayPrefab, questsContainer.transform).GetComponent<QuestDisplayElement>();
+                displayElement.Initialize(uiElement);
+            }
         }
 
         public void Close()

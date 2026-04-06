@@ -33,18 +33,12 @@ namespace UI.MVP.Pause
             closeQuests.onClick.AddListener(CloseQuestsView);
             
             base.Initialize(presenter);
+            _pausePresenter.InitializeQuestsView(questDisplayPrefab, questsContainer);
         }
 
         private void OpenQuestsView()
         {
             questsView.SetActive(true);
-            var uiElements = _pausePresenter.ReturnUIElements();
-
-            foreach (var uiElement in uiElements)
-            {
-                var displayElement = Instantiate(questDisplayPrefab, questsContainer.transform);
-                
-            }
         }
 
         private void CloseQuestsView()
