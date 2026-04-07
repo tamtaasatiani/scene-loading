@@ -13,6 +13,7 @@ public class GameManager : Service
 
     public override UniTask InitializeAsync()
     {
+        base.InitializeAsync();
         _initialized = true;
         return UniTask.CompletedTask;
     }

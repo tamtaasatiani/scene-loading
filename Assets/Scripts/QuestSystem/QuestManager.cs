@@ -15,8 +15,8 @@ namespace QuestSystem
         public override UniTask InitializeAsync()
         {
             InitializeQuestsToObjectives();
+            base.InitializeAsync();
             _initialized = true;
-            
             return UniTask.CompletedTask;
         }
         

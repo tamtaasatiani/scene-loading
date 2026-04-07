@@ -7,9 +7,10 @@ namespace ServiceLocation
     {
         protected bool _initialized = false;
         
-        public virtual async UniTask InitializeAsync()
+        public virtual UniTask InitializeAsync()
         {
-            throw new System.NotImplementedException();
+            DontDestroyOnLoad(this);
+            return UniTask.CompletedTask;
         }
     }
 }

@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1685530177}
+  sceneLoader: {fileID: 970429815}
   objectiveManager: {fileID: 25232515}
   questManager: {fileID: 221893856}
 --- !u!4 &292915192

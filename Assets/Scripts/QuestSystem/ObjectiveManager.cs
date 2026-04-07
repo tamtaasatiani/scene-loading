@@ -21,8 +21,9 @@ namespace QuestSystem
             }
             
             lib.SubscribeToObjectiveStarted(AddToActiveObjectives);
-            _initialized = true;
             
+            base.InitializeAsync();
+            _initialized = true;
             return UniTask.CompletedTask;
         }
 

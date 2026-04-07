@@ -22,7 +22,9 @@ namespace ServiceLocation
         //[SerializeField] private List<Service> services;
         
         [SerializeField] private GameManager gameManager;
-        
+        [Space]
+        [SerializeField] private SceneLoader sceneLoader;
+        [Space]
         [SerializeField] private ObjectiveManager objectiveManager;
         [SerializeField] private QuestManager questManager;
         
@@ -30,6 +32,9 @@ namespace ServiceLocation
         {
             IServiceLocator.Default.TryRegisterService(gameManager);
             await gameManager.InitializeAsync();
+            
+            IServiceLocator.Default.TryRegisterService(sceneLoader);
+            await sceneLoader.InitializeAsync();
             
             IServiceLocator.Default.TryRegisterService(objectiveManager);
             await objectiveManager.InitializeAsync();
@@ -55,6 +60,16 @@ namespace ServiceLocation
                 //IServiceLocator.Default.TryRegisterService(castedValue);
                 */
             //}
+        }
+
+        private void OnDisable()
+        {
+            IServiceLocator.Default.TryUnregisterService(gameManager);
+            
+            IServiceLocator.Default.TryUnregisterService(sceneLoader);
+            
+            IServiceLocator.Default.TryUnregisterService(objectiveManager);
+            IServiceLocator.Default.TryUnregisterService(questManager);
         }
     }
 }

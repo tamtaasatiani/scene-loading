@@ -26,9 +26,11 @@ public class LoadingScreen : MonoBehaviour
 
     public void SetSliderValue(float value)
     {
-        if (slider == null) return;
+        if (slider == null)
+        {
+            Debug.LogWarning("No slider is set");
+            return;
+        }
         slider.value = value;
     }
-
-    
 }

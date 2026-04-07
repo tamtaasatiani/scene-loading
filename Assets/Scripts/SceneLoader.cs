@@ -9,7 +9,14 @@ public class SceneLoader : Service
 {
     [SerializeField] private LoadingScreen loadingScreen;
 
-    public async UniTask LoadScene(SceneData scene, LoadSceneMode mode)
+    public override UniTask InitializeAsync()
+    {
+        base.InitializeAsync();
+        _initialized = true;
+        return UniTask.CompletedTask;
+    }
+
+    public async UniTask LoadSceneAsync(SceneData scene, LoadSceneMode mode)
     {
         try
         {
@@ -35,12 +42,11 @@ public class SceneLoader : Service
                 Debug.LogError($"Unable to load scene {scene.name}");
                 return;
             }
-
-            while (!operation.GetDownloadStatus().IsDone)
+            do
             {
-                loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
                 await UniTask.DelayFrame(1);
-            }
+                loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
+            } while (!operation.GetDownloadStatus().IsDone);
         }
         catch (Exception exception)
         {
@@ -48,7 +54,7 @@ public class SceneLoader : Service
         }
     }
     
-    public async UniTask LoadScene(SceneData scene)
+    public async UniTask LoadSceneAsync(SceneData scene)
     {
         try
         {

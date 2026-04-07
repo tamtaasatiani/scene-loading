@@ -20,6 +20,7 @@ public class Observer<TManager, TObserved> : Service where TManager : MonoBehavi
             Application.exitCancellationToken
         );
         
+        base.InitializeAsync();
         _initialized = true;
         return UniTask.CompletedTask;
     }
