@@ -1,21 +1,13 @@
-using Cysharp.Threading.Tasks;
-using ServiceLocation;
 using UI.MVP.Pause;
 using UnityEngine;
 
-public class GameManager : Service
+public class GameManagerObsolete : SingletonMonoBehaviour<GameManagerObsolete>
 {
     private bool _paused;
     
     [SerializeField] private Canvas canvas;
     [SerializeField] private PauseModel pauseModel;
     [SerializeField] private PausePresenter pausePresenter;
-
-    public override UniTask InitializeAsync()
-    {
-        _initialized = true;
-        return UniTask.CompletedTask;
-    }
 
     private void Update()
     {

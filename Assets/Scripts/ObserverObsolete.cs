@@ -2,36 +2,25 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using QuestSystem;
-using ServiceLocation;
 using UnityEngine;
 // ReSharper disable HeapView.CanAvoidClosure
 
-public class Observer<TManager, TObserved> : Service where TManager : MonoBehaviour where TObserved : ScriptableObject, IUpdateable<TObserved>
+public class ObserverObsolete<TManager, TObserved> : SingletonMonoBehaviour<TManager> where TManager : MonoBehaviour where TObserved : ScriptableObject, IUpdateable<TObserved>
 {
-    //protected bool _initialized = false;
+    protected bool _initialized = false;
     protected CancellationTokenSource _cancellationTokenSource;
     
     [SerializeField] protected Library<TObserved> library;
 
-    public override UniTask InitializeAsync()
+    public override void Awake()
     {
+        base.Awake();
+        
         _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(
             destroyCancellationToken,
             Application.exitCancellationToken
         );
-        
-        _initialized = true;
-        return UniTask.CompletedTask;
     }
-    //public override void Awake()
-    //{
-    //    base.Awake();
-    //    
-    //    _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(
-    //        destroyCancellationToken,
-    //        Application.exitCancellationToken
-    //    );
-    //}
     
     public virtual async UniTask AddListenerAsync(int hashCode, Action<TObserved> callback)
     {

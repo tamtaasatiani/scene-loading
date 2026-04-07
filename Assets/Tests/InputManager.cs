@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using QuestSystem;
+using ServiceLocation;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Backspace)) {
-            ObjectiveManager.Instance.BroadcastAsync(objective.GetHashCode()).Forget();
+            IServiceLocator.Default.GetService<ObjectiveManager>().BroadcastAsync(objective.GetHashCode()).Forget();
         }
     }
 }

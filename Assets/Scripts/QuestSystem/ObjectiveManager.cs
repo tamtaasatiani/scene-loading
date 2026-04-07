@@ -11,17 +11,19 @@ namespace QuestSystem
     {
         private List<Objective> _activeObjectives = new List<Objective>();
 
-        private void OnEnable()
+        public override UniTask InitializeAsync()
         {
             var lib = library as ObjectiveLibrary;
             if (lib == null)
             {
                 Debug.LogError("Provided library is not objective library");
-                return;
+                return UniTask.CompletedTask;
             }
             
             lib.SubscribeToObjectiveStarted(AddToActiveObjectives);
             _initialized = true;
+            
+            return UniTask.CompletedTask;
         }
 
         private void OnDisable()

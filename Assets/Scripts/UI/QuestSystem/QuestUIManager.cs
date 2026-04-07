@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using QuestSystem;
 using QuickEye.Utility;
+using ServiceLocation;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -19,13 +20,13 @@ namespace UI
         public void Subscribe()
         {
             _uiElements.Clear();
-            QuestManager.Instance.AddListenerPokeAllAsync(ConfigureUIElements).Forget();
-            QuestManager.Instance.BroadcastPokeAllAsync().Forget();
+            IServiceLocator.Default.GetService<QuestManager>().AddListenerPokeAllAsync(ConfigureUIElements).Forget();
+            IServiceLocator.Default.GetService<QuestManager>().BroadcastPokeAllAsync().Forget();
         }
 
         public void Unsubscribe()
         {
-            QuestManager.Instance.RemoveListenerPokeAllAsync(ConfigureUIElements).Forget();
+            IServiceLocator.Default.GetService<QuestManager>().RemoveListenerPokeAllAsync(ConfigureUIElements).Forget();
         }
 
         private void ConfigureUIElements(Quest quest)

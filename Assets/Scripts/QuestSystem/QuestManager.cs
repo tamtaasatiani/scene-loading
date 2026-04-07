@@ -12,9 +12,12 @@ namespace QuestSystem
         
         [SerializeField] private ObjectiveLibrary objectiveLibrary;
 
-        private void OnEnable()
+        public override UniTask InitializeAsync()
         {
             InitializeQuestsToObjectives();
+            _initialized = true;
+            
+            return UniTask.CompletedTask;
         }
         
         private void InitializeQuestsToObjectives()
@@ -25,8 +28,6 @@ namespace QuestSystem
                 quest.SubscribeToObjectiveUpdated(quest.HandleUpdated);
                 quest.SubscribeToObjectiveCompleted(quest.HandleCompleted);
             }
-
-            _initialized = true;
         }
 
         private void OnDisable()

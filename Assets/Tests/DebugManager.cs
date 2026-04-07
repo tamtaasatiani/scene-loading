@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using QuestSystem;
+using ServiceLocation;
 using UnityEngine;
 
 public class DebugManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class DebugManager : MonoBehaviour
     
     private void OnEnable()
     {
-        ObjectiveManager.Instance.AddListenerAsync(obj.GetHashCode(), NotifyBackspacePressed).Forget();  
+        IServiceLocator.Default.GetService<ObjectiveManager>().AddListenerAsync(obj.GetHashCode(), NotifyBackspacePressed).Forget();  
     }
 
     private void NotifyBackspacePressed(ScriptableObject objective)
@@ -19,6 +20,6 @@ public class DebugManager : MonoBehaviour
     
     private void OnDisable()
     {
-        ObjectiveManager.Instance.RemoveListenerAsync(obj.GetHashCode(), NotifyBackspacePressed).Forget();
+        IServiceLocator.Default.GetService<ObjectiveManager>().RemoveListenerAsync(obj.GetHashCode(), NotifyBackspacePressed).Forget();
     }
 }
