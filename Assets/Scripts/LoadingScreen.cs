@@ -24,6 +24,11 @@ public class LoadingScreen : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
+    public void HideLoadingScreen()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     public void SetSliderValue(float value)
     {
         if (slider == null)

@@ -12,6 +12,8 @@ public class Initializer : MonoBehaviour
     [SerializeField] private SceneData mainMenuScene;
     [SerializeField] private LoadingScreen loadingScreen;
 
+    private SceneInstance _firstScene;
+
     private void Awake()
     {
         InitializeAsync().Forget();
@@ -25,6 +27,7 @@ public class Initializer : MonoBehaviour
         await serviceInstaller.InitializeAsync();
         await LoadSceneAsync(mainMenuScene, LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync(initializationScene);
+        IServiceLocator.Default.GetService<SceneLoader>().SetFirstScene(_firstScene);
     }
     
     private async UniTask LoadSceneAsync(SceneData scene, LoadSceneMode mode)
@@ -59,6 +62,8 @@ public class Initializer : MonoBehaviour
                 await UniTask.DelayFrame(1);
                 loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
             } while (!operation.GetDownloadStatus().IsDone);
+
+            _firstScene = operation.Result;
         }
         catch (Exception exception)
         {

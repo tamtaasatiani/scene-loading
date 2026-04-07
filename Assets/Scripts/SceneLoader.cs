@@ -3,17 +3,33 @@ using Cysharp.Threading.Tasks;
 using ServiceLocation;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : Service
 {
     [SerializeField] private LoadingScreen loadingScreen;
 
+    private bool _currentSceneSet = false;
+    private SceneInstance _currentScene;
+
     public override UniTask InitializeAsync()
     {
         base.InitializeAsync();
         _initialized = true;
         return UniTask.CompletedTask;
+    }
+
+    public void SetFirstScene(SceneInstance scene)
+    {
+        if (_currentSceneSet)
+        {
+            Debug.LogError("Scene is already set");
+            return;
+        }
+        
+        _currentScene = scene;
+        _currentSceneSet = true;
     }
 
     public async UniTask LoadSceneAsync(SceneData scene, LoadSceneMode mode)
@@ -47,6 +63,13 @@ public class SceneLoader : Service
                 await UniTask.DelayFrame(1);
                 loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
             } while (!operation.GetDownloadStatus().IsDone);
+            
+            if (_currentSceneSet)
+                await Addressables.UnloadSceneAsync(_currentScene);
+            
+            _currentScene = operation.Result;
+            _currentSceneSet = true;
+            loadingScreen.HideLoadingScreen();
         }
         catch (Exception exception)
         {

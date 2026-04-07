@@ -1,6 +1,9 @@
+using System;
 using Cysharp.Threading.Tasks;
+using ServiceLocation;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -12,8 +15,7 @@ public class MainMenuView : MonoBehaviour
     [SerializeField] private SceneData lightSceneData;
     [SerializeField] private SceneData heavySceneData;
 
-    [FormerlySerializedAs("sceneLoader")] [SerializeField] private SceneLoaderObsolete sceneLoaderObsolete;
-    
+    //[FormerlySerializedAs("sceneLoader")] [SerializeField] private SceneLoaderObsolete sceneLoaderObsolete;
     
     public event UnityAction LoadLightScene;
     public event UnityAction LoadHeavyScene;
@@ -28,12 +30,14 @@ public class MainMenuView : MonoBehaviour
     }
 
     private void HandleLoadLightScene()
-    {
-        sceneLoaderObsolete.LoadScene(lightSceneData).Forget();
+    { 
+        IServiceLocator.Default.GetService<SceneLoader>().LoadSceneAsync(lightSceneData, LoadSceneMode.Additive).Forget();
+        //sceneLoaderObsolete.LoadScene(lightSceneData).Forget();
     }
 
     private void HandleLoadHeavyScene()
     {
-        sceneLoaderObsolete.LoadScene(heavySceneData).Forget();
+        IServiceLocator.Default.GetService<SceneLoader>().LoadSceneAsync(heavySceneData, LoadSceneMode.Additive).Forget();
+        //sceneLoaderObsolete.LoadScene(heavySceneData).Forget();
     }
 }
