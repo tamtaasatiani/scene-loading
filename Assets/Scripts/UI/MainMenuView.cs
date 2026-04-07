@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MainMenuView : MonoBehaviour
@@ -11,7 +12,7 @@ public class MainMenuView : MonoBehaviour
     [SerializeField] private SceneData lightSceneData;
     [SerializeField] private SceneData heavySceneData;
 
-    [SerializeField] private SceneLoader sceneLoader;
+    [FormerlySerializedAs("sceneLoader")] [SerializeField] private SceneLoaderObsolete sceneLoaderObsolete;
     
     
     public event UnityAction LoadLightScene;
@@ -28,11 +29,11 @@ public class MainMenuView : MonoBehaviour
 
     private void HandleLoadLightScene()
     {
-        sceneLoader.LoadScene(lightSceneData).Forget();
+        sceneLoaderObsolete.LoadScene(lightSceneData).Forget();
     }
 
     private void HandleLoadHeavyScene()
     {
-        sceneLoader.LoadScene(heavySceneData).Forget();
+        sceneLoaderObsolete.LoadScene(heavySceneData).Forget();
     }
 }

@@ -1,11 +1,10 @@
 using System;
 using Cysharp.Threading.Tasks;
-using ServiceLocation;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : Service
+public class SceneLoaderObsolete : MonoBehaviour
 {
     [SerializeField] private LoadingScreen loadingScreen;
 
