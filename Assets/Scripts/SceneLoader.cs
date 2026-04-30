@@ -8,10 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : Service
 {
-    [SerializeField] private LoadingScreen loadingScreen;
-
     private bool _currentSceneSet = false;
     private SceneInstance _currentScene;
+
+    public event Action<float> OnLoadingStarted;
+    public event Action<float> OnLoadingUpdated;
+    public event Action<float> OnLoadingFinished;
 
     public override UniTask InitializeAsync()
     {
@@ -43,12 +45,8 @@ public class SceneLoader : Service
             
             if(!scene.IsValid())
                 return;
-            loadingScreen.Initialize();
 
-            if (scene.ScenePreview != null)
-                loadingScreen.SetImage(scene.ScenePreview);
-
-            loadingScreen.ShowLoadingScreen();
+            OnLoadingStarted?.Invoke(0);
             await UniTask.DelayFrame(1);
 
             var operation = Addressables.LoadSceneAsync(scene.name, mode);
@@ -61,7 +59,7 @@ public class SceneLoader : Service
             do
             {
                 await UniTask.DelayFrame(1);
-                loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
+                OnLoadingUpdated?.Invoke(operation.GetDownloadStatus().Percent);
             } while (!operation.GetDownloadStatus().IsDone);
             
             if (_currentSceneSet)
@@ -69,7 +67,7 @@ public class SceneLoader : Service
             
             _currentScene = operation.Result;
             _currentSceneSet = true;
-            loadingScreen.HideLoadingScreen();
+            OnLoadingFinished?.Invoke(1);
         }
         catch (Exception exception)
         {
@@ -88,12 +86,8 @@ public class SceneLoader : Service
             
             if(!scene.IsValid())
                 return;
-            loadingScreen.Initialize();
 
-            if (scene.ScenePreview != null)
-                loadingScreen.SetImage(scene.ScenePreview);
-
-            loadingScreen.ShowLoadingScreen();
+            OnLoadingStarted?.Invoke(0);
             await UniTask.DelayFrame(1);
 
             var operation = Addressables.LoadSceneAsync(scene.name);
@@ -106,9 +100,11 @@ public class SceneLoader : Service
 
             while (!operation.GetDownloadStatus().IsDone)
             {
-                loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
+                OnLoadingUpdated?.Invoke(operation.GetDownloadStatus().Percent);
                 await UniTask.DelayFrame(1);
             }
+            
+            OnLoadingFinished?.Invoke(1);
         }
         catch (Exception exception)
         {

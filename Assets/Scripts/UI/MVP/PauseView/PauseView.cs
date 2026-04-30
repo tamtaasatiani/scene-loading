@@ -14,6 +14,7 @@ namespace UI.MVP.Pause
         
         [Header("Buttons")]
         [SerializeField] private Button close;
+        [SerializeField] private Button back;
         [SerializeField] private Button quests;
         [SerializeField] private Button closeQuests;
 
@@ -30,6 +31,7 @@ namespace UI.MVP.Pause
             
             close.onClick.AddListener(Close);
             quests.onClick.AddListener(OpenQuestsView);
+            back.onClick.AddListener(Back);
             closeQuests.onClick.AddListener(CloseQuestsView);
             
             base.Initialize(presenter);
@@ -46,6 +48,12 @@ namespace UI.MVP.Pause
             questsView.SetActive(false);
         }
 
+        private void Back()
+        {
+            _pausePresenter.BackToMainMenu();
+            _pausePresenter.Close();
+        }
+
         private void Close()
         {
             _pausePresenter.Close();
@@ -55,6 +63,7 @@ namespace UI.MVP.Pause
         {
             close.onClick.RemoveAllListeners();
             quests.onClick.RemoveAllListeners();
+            back.onClick.RemoveAllListeners();
             closeQuests.onClick.RemoveAllListeners();
         }
     }

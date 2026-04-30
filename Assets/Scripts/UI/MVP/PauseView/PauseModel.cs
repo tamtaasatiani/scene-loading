@@ -7,7 +7,7 @@ namespace UI.MVP.Pause
     public class PauseModel : Model
     {
         public QuestUIManager QuestUIManager;
-        
         public Action OnClose;
+        public SceneData mainMenuScene;
     }
 }

@@ -28,6 +28,8 @@ namespace ServiceLocation
         [SerializeField] private ObjectiveManager objectiveManager;
         [SerializeField] private QuestManager questManager;
         
+        [SerializeField] private LoadingScreen loadingScreen;
+        
         public async UniTask InitializeAsync()
         {
             IServiceLocator.Default.TryRegisterService(gameManager);
@@ -41,7 +43,8 @@ namespace ServiceLocation
             IServiceLocator.Default.TryRegisterService(questManager);
             await questManager.InitializeAsync();
             
-            
+            IServiceLocator.Default.TryRegisterService(loadingScreen);
+            await loadingScreen.InitializeAsync();
             //foreach (var entry in services)
             //{
                 /*
@@ -60,16 +63,6 @@ namespace ServiceLocation
                 //IServiceLocator.Default.TryRegisterService(castedValue);
                 */
             //}
-        }
-
-        private void OnDisable()
-        {
-            IServiceLocator.Default.TryUnregisterService(gameManager);
-            
-            IServiceLocator.Default.TryUnregisterService(sceneLoader);
-            
-            IServiceLocator.Default.TryUnregisterService(objectiveManager);
-            IServiceLocator.Default.TryUnregisterService(questManager);
         }
     }
 }

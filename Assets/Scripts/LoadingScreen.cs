@@ -1,16 +1,32 @@
+using BetterAttributes.Runtime;
+using Cysharp.Threading.Tasks;
+using ServiceLocation;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingScreen : MonoBehaviour
+public class LoadingScreen : Service
 {
-    [SerializeField] private Image image;
+    private SceneLoader _sceneLoader;
     
-    [SerializeField] private Slider slider;
+    [SerializeField, Require] private Image image;
+    [SerializeField, Require] private Slider slider;
 
-    public void Initialize()
+    public override UniTask InitializeAsync()
     {
-        image = GetComponentInChildren<Image>();
-        slider = GetComponentInChildren<Slider>();
+        _sceneLoader = IServiceLocator.Default.GetService<SceneLoader>();
+        
+        _sceneLoader.OnLoadingStarted += StartLoading;
+        _sceneLoader.OnLoadingUpdated += SetSliderValue;
+        _sceneLoader.OnLoadingFinished += FinishLoading;
+        
+        return base.InitializeAsync();
+    }
+
+    private void OnDestroy()
+    {
+        _sceneLoader.OnLoadingStarted -= StartLoading;
+        _sceneLoader.OnLoadingUpdated -= SetSliderValue;
+        _sceneLoader.OnLoadingFinished -= FinishLoading;
     }
 
     public void SetImage(Sprite sprite)
@@ -19,14 +35,16 @@ public class LoadingScreen : MonoBehaviour
         image.sprite = sprite;
     }
 
-    public void ShowLoadingScreen()
+    private void StartLoading(float value)
     {
         this.gameObject.SetActive(true);
+        SetSliderValue(0);
     }
 
-    public void HideLoadingScreen()
+    private void FinishLoading(float value)
     {
         this.gameObject.SetActive(false);
+        SetSliderValue(1);
     }
 
     public void SetSliderValue(float value)

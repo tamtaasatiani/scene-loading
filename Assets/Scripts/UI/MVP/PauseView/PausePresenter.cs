@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using ServiceLocation;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI.MVP.Pause
 {
@@ -34,6 +37,11 @@ namespace UI.MVP.Pause
                 var displayElement = Instantiate(questDisplayPrefab, questsContainer.transform).GetComponent<QuestDisplayElement>();
                 displayElement.Initialize(uiElement);
             }
+        }
+
+        public void BackToMainMenu()
+        {
+            IServiceLocator.Default.GetService<SceneLoader>().LoadSceneAsync(_model.mainMenuScene, LoadSceneMode.Additive).Forget();
         }
 
         public void Close()

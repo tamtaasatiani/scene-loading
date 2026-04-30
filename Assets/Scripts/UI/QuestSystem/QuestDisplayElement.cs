@@ -36,6 +36,7 @@ namespace UI
 
             progressBar.gameObject.SetActive(_progressible);
             
+            if (progressBar.GetComponent<Slider>() == null) return;
             progressBar.GetComponent<Slider>().value = _progress;
         }
     }

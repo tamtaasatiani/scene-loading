@@ -10,9 +10,13 @@ public class Initializer : MonoBehaviour
 {
     [SerializeField] private SceneData managersScene;
     [SerializeField] private SceneData mainMenuScene;
-    [SerializeField] private LoadingScreen loadingScreen;
 
     private SceneInstance _firstScene;
+    
+    public event Action<float> OnLoadingStarted;
+    public event Action<float> OnLoadingUpdated;
+    public event Action<float> OnLoadingFinished;
+
 
     private void Awake()
     {
@@ -26,8 +30,10 @@ public class Initializer : MonoBehaviour
         var serviceInstaller = FindAnyObjectByType<ServiceInstaller>();
         await serviceInstaller.InitializeAsync();
         await LoadSceneAsync(mainMenuScene, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(initializationScene);
+        await SceneManager.UnloadSceneAsync(initializationScene);
         IServiceLocator.Default.GetService<SceneLoader>().SetFirstScene(_firstScene);
+        var mScene = SceneManager.GetSceneByName(managersScene.name);
+        await SceneManager.UnloadSceneAsync(mScene);
     }
     
     private async UniTask LoadSceneAsync(SceneData scene, LoadSceneMode mode)
@@ -41,12 +47,8 @@ public class Initializer : MonoBehaviour
             
             if(!scene.IsValid())
                 return;
-            loadingScreen.Initialize();
 
-            if (scene.ScenePreview != null)
-                loadingScreen.SetImage(scene.ScenePreview);
-
-            loadingScreen.ShowLoadingScreen();
+            OnLoadingStarted?.Invoke(0);
             await UniTask.DelayFrame(1);
 
             var operation = Addressables.LoadSceneAsync(scene.name, mode);
@@ -60,10 +62,11 @@ public class Initializer : MonoBehaviour
             do
             {
                 await UniTask.DelayFrame(1);
-                loadingScreen.SetSliderValue(operation.GetDownloadStatus().Percent);
+                OnLoadingUpdated?.Invoke(operation.GetDownloadStatus().Percent);
             } while (!operation.GetDownloadStatus().IsDone);
 
             _firstScene = operation.Result;
+            OnLoadingStarted?.Invoke(1);
         }
         catch (Exception exception)
         {
